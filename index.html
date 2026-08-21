@@ -216,166 +216,179 @@
 
     <!-- SCRIPT DE LÓGICA COMPLETO -->
     <script>
-        // ESTADO GLOBAL DA APLICAÇÃO
-        let currentUser = { username: "Mister", xp: 0, level: 1 };
-        let pomodoroInterval = null;
-        let pomodoroSeconds = 25 * 60;
-        let isPomodoroRunning = false;
+    // ESTADO GLOBAL DA APLICAÇÃO
+    let currentUser = { username: "Mister", xp: 0, level: 1, maxXp: 100 };
+    let pomodoroInterval = null;
+    let pomodoroSeconds = 25 * 60;
+    let isPomodoroRunning = false;
 
-        // INICIALIZAÇÃO
-        document.addEventListener("DOMContentLoaded", () => {
-            updateXPUI();
-        });
+    // INICIALIZAÇÃO
+    document.addEventListener("DOMContentLoaded", () => {
+        updateXPUI();
+    });
 
-        // LÓGICA DE PROGRESSO DE XP E NÍVEIS (CORRIGIDO)
-        function addXP(amount) {
-            currentUser.xp += amount;
-            if (currentUser.xp >= 100) {
-                currentUser.level += Math.floor(currentUser.xp / 100);
-                currentUser.xp = currentUser.xp % 100;
-            }
-            updateXPUI();
+    // LÓGICA DE PROGRESSO DE XP E NÍVEIS (CORRIGIDO)
+    function addXP(amount) {
+        currentUser.xp += amount;
+        
+        // Loop para lidar com múltiplos níveis de uma vez se o XP ganho for alto
+        while (currentUser.xp >= currentUser.maxXp) {
+            currentUser.xp -= currentUser.maxXp;
+            currentUser.level += 1;
         }
+        
+        updateXPUI();
+    }
 
-        function updateXPUI() {
-            const progressBar = document.getElementById("xp-progress-bar");
-            const xpText = document.getElementById("xp-text-display");
-            const levelBadge = document.getElementById("user-badge-level");
-            const nextLevel = document.getElementById("next-level-num");
+    function updateXPUI() {
+        const progressBar = document.getElementById("xp-progress-bar");
+        const xpText = document.getElementById("xp-text-display");
+        const levelBadge = document.getElementById("user-badge-level");
+        const nextLevel = document.getElementById("next-level-num");
 
-            if (progressBar) progressBar.style.width = `${currentUser.xp}%`;
-            if (xpText) xpText.innerText = `${currentUser.xp} / 100 XP`;
-            if (levelBadge) levelBadge.innerText = `Nível ${currentUser.level}`;
-            if (nextLevel) nextLevel.innerText = `Nível ${currentUser.level + 1}`;
+        // Cálculo exato da porcentagem (0% a 100%)
+        const percentage = Math.min(Math.max((currentUser.xp / currentUser.maxXp) * 100, 0), 100);
+
+        if (progressBar) {
+            // Força a atualização da largura no elemento inline
+            progressBar.style.width = `${percentage}%`;
         }
+        
+        if (xpText) xpText.innerText = `${currentUser.xp} / ${currentUser.maxXp} XP`;
+        if (levelBadge) levelBadge.innerText = `Nível ${currentUser.level}`;
+        if (nextLevel) nextLevel.innerText = `Nível ${currentUser.level + 1}`;
+    }
 
-        // LÓGICA DO CHAT IA OLYMBOT (CORRIGIDO)
-        function handleChatSubmit(event) {
-            event.preventDefault();
-            const input = document.getElementById("chat-input");
-            const chatBox = document.getElementById("chat-box");
-            const text = input.value.trim();
+    // LÓGICA DO CHAT IA OLYMBOT
+    function handleChatSubmit(event) {
+        event.preventDefault();
+        const input = document.getElementById("chat-input");
+        const chatBox = document.getElementById("chat-box");
+        const text = input.value.trim();
 
-            if (!text) return;
+        if (!text) return;
 
-            // Renderizar Mensagem do Usuário
-            const userMsg = document.createElement("div");
-            userMsg.className = "bg-indigo-600/30 border border-indigo-500/30 p-3 rounded-xl text-slate-100 max-w-[85%] ml-auto text-right mb-2";
-            userMsg.innerText = text;
-            chatBox.appendChild(userMsg);
+        // Renderizar Mensagem do Usuário
+        const userMsg = document.createElement("div");
+        userMsg.className = "bg-indigo-600/30 border border-indigo-500/30 p-3 rounded-xl text-slate-100 max-w-[85%] ml-auto text-right mb-2";
+        userMsg.innerText = text;
+        chatBox.appendChild(userMsg);
 
-            input.value = "";
+        input.value = "";
+        chatBox.scrollTop = chatBox.scrollHeight;
+
+        // Resposta Simulada do Tutor Pedagógico
+        setTimeout(() => {
+            const botMsg = document.createElement("div");
+            botMsg.className = "bg-slate-900 border border-slate-800 p-3 rounded-xl text-slate-300 max-w-[85%] mb-2";
+            botMsg.innerText = generateTutorResponse(text);
+            chatBox.appendChild(botMsg);
             chatBox.scrollTop = chatBox.scrollHeight;
 
-            // Resposta Simulada do Tutor Pedagógico
-            setTimeout(() => {
-                const botMsg = document.createElement("div");
-                botMsg.className = "bg-slate-900 border border-slate-800 p-3 rounded-xl text-slate-300 max-w-[85%] mb-2";
-                botMsg.innerText = generateTutorResponse(text);
-                chatBox.appendChild(botMsg);
-                chatBox.scrollTop = chatBox.scrollHeight;
+            // Recompensa de +20 XP por interagir com o tutor
+            addXP(20);
+        }, 600);
+    }
 
-                // Recompensa de XP por utilizar o tutor
-                addXP(20);
-            }, 600);
+    function generateTutorResponse(query) {
+        const lower = query.toLowerCase();
+        if (lower.includes("kepler") || lower.includes("oba")) {
+            return "💡 Dica de Astronomia: Lembre-se da 3ª Lei de Kepler (T² ∝ a³). O quadrado do período orbital é proporcional ao cubo do semi-eixo maior!";
+        } else if (lower.includes("obmep") || lower.includes("contagem")) {
+            return "🧩 Dica de Matemática: Em problemas de contagem, tente quebrar o problema em casos menores ou utilizar o Princípio Multiplicativo.";
+        } else {
+            return "Excelente questão! Para resolver isso sem spoilers: identifique primeiro as variáveis principais e monte a equação fundamental do problema. Quer um passo a passo intermediário?";
         }
+    }
 
-        function generateTutorResponse(query) {
-            const lower = query.toLowerCase();
-            if (lower.includes("kepler") || lower.includes("oba")) {
-                return "💡 Dica de Astronomia: Lembre-se da 3ª Lei de Kepler ($T^2 \\propto a^3$). O quadrado do período orbital é proporcional ao cubo do semi-eixo maior!";
-            } else if (lower.includes("obmep") || lower.includes("contagem")) {
-                return "🧩 Dica de Matemática: Em problemas de contagem, tente quebrar o problema em casos menores ou utilizar o Princípio Multiplicativo.";
-            } else {
-                return `Excelente questão! Para resolver isso sem spoilers: identifique primeiro as variáveis principais e monte a equação fundamental do problema. Quer um passo a passo intermediário?`;
-            }
+    // LÓGICA DE GERENCIAMENTO DE MODAIS E MENUS
+    function toggleDotsMenu() {
+        document.getElementById("dots-dropdown").classList.toggle("hidden");
+    }
+
+    function openAuthModal(tab) {
+        document.getElementById("auth-modal").classList.remove("hidden");
+        switchAuthTab(tab);
+    }
+
+    function closeAuthModal() {
+        document.getElementById("auth-modal").classList.add("hidden");
+    }
+
+    function switchAuthTab(tab) {
+        const regForm = document.getElementById("register-form");
+        const loginForm = document.getElementById("login-form");
+        if (tab === 'register') {
+            regForm.classList.remove("hidden");
+            loginForm.classList.add("hidden");
+        } else {
+            regForm.classList.add("hidden");
+            loginForm.classList.remove("hidden");
         }
+    }
 
-        // LÓGICA DE GERENCIAMENTO DE MODAIS E MENUS
-        function toggleDotsMenu() {
-            document.getElementById("dots-dropdown").classList.toggle("hidden");
-        }
+    function handleLogin(e) {
+        e.preventDefault();
+        closeAuthModal();
+        document.getElementById("public-view").classList.add("hidden");
+        document.getElementById("portal-view").classList.remove("hidden");
+        document.getElementById("nav-guest-actions").classList.add("hidden");
+        document.getElementById("nav-user-actions").classList.remove("hidden");
+        document.getElementById("nav-user-actions").classList.add("flex");
+        
+        // Atualiza a UI para garantir que os valores apareçam renderizados ao entrar
+        updateXPUI();
+    }
 
-        function openAuthModal(tab) {
-            document.getElementById("auth-modal").classList.remove("hidden");
-            switchAuthTab(tab);
-        }
+    function handleRegister(e) {
+        e.preventDefault();
+        handleLogin(e);
+    }
 
-        function closeAuthModal() {
-            document.getElementById("auth-modal").classList.add("hidden");
-        }
+    function logout() {
+        document.getElementById("public-view").classList.remove("hidden");
+        document.getElementById("portal-view").classList.add("hidden");
+        document.getElementById("nav-guest-actions").classList.remove("hidden");
+        document.getElementById("nav-user-actions").classList.add("hidden");
+    }
 
-        function switchAuthTab(tab) {
-            const regForm = document.getElementById("register-form");
-            const loginForm = document.getElementById("login-form");
-            if (tab === 'register') {
-                regForm.classList.remove("hidden");
-                loginForm.classList.add("hidden");
-            } else {
-                regForm.classList.add("hidden");
-                loginForm.classList.remove("hidden");
-            }
-        }
-
-        function handleLogin(e) {
-            e.preventDefault();
-            closeAuthModal();
-            document.getElementById("public-view").classList.add("hidden");
-            document.getElementById("portal-view").classList.remove("hidden");
-            document.getElementById("nav-guest-actions").classList.add("hidden");
-            document.getElementById("nav-user-actions").classList.remove("hidden");
-            document.getElementById("nav-user-actions").classList.add("flex");
-        }
-
-        function handleRegister(e) {
-            e.preventDefault();
-            handleLogin(e);
-        }
-
-        function logout() {
-            document.getElementById("public-view").classList.remove("hidden");
-            document.getElementById("portal-view").classList.add("hidden");
-            document.getElementById("nav-guest-actions").classList.remove("hidden");
-            document.getElementById("nav-user-actions").classList.add("hidden");
-        }
-
-        // CONTROLADOR POMODORO
-        function togglePomodoro() {
-            const btn = document.getElementById("pomo-start-btn");
-            if (isPomodoroRunning) {
-                clearInterval(pomodoroInterval);
-                isPomodoroRunning = false;
-                btn.innerText = "Iniciar";
-            } else {
-                isPomodoroRunning = true;
-                btn.innerText = "Pausar";
-                pomodoroInterval = setInterval(() => {
-                    if (pomodoroSeconds > 0) {
-                        pomodoroSeconds--;
-                        updatePomodoroDisplay();
-                    } else {
-                        clearInterval(pomodoroInterval);
-                        addXP(50); // Bônus por completar a sessão
-                        alert("Sessão Pomodoro concluída! +50 XP adicionados.");
-                        resetPomodoro();
-                    }
-                }, 1000);
-            }
-        }
-
-        function resetPomodoro() {
+    // CONTROLADOR POMODORO
+    function togglePomodoro() {
+        const btn = document.getElementById("pomo-start-btn");
+        if (isPomodoroRunning) {
             clearInterval(pomodoroInterval);
             isPomodoroRunning = false;
-            pomodoroSeconds = 25 * 60;
-            document.getElementById("pomo-start-btn").innerText = "Iniciar";
-            updatePomodoroDisplay();
+            btn.innerText = "Iniciar";
+        } else {
+            isPomodoroRunning = true;
+            btn.innerText = "Pausar";
+            pomodoroInterval = setInterval(() => {
+                if (pomodoroSeconds > 0) {
+                    pomodoroSeconds--;
+                    updatePomodoroDisplay();
+                } else {
+                    clearInterval(pomodoroInterval);
+                    addXP(50); // Bônus por completar a sessão (+50 XP)
+                    alert("Sessão Pomodoro concluída! +50 XP adicionados.");
+                    resetPomodoro();
+                }
+            }, 1000);
         }
+    }
 
-        function updatePomodoroDisplay() {
-            const min = Math.floor(pomodoroSeconds / 60).toString().padStart(2, '0');
-            const sec = (pomodoroSeconds % 60).toString().padStart(2, '0');
-            document.getElementById("pomodoro-timer").innerText = `${min}:${sec}`;
-        }
-    </script>
+    function resetPomodoro() {
+        clearInterval(pomodoroInterval);
+        isPomodoroRunning = false;
+        pomodoroSeconds = 25 * 60;
+        document.getElementById("pomo-start-btn").innerText = "Iniciar";
+        updatePomodoroDisplay();
+    }
+
+    function updatePomodoroDisplay() {
+        const min = Math.floor(pomodoroSeconds / 60).toString().padStart(2, '0');
+        const sec = (pomodoroSeconds % 60).toString().padStart(2, '0');
+        document.getElementById("pomodoro-timer").innerText = `${min}:${sec}`;
+    }
+</script>
 </body>
 </html>
