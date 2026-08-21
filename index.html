@@ -1,603 +1,1303 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Olympius.ia - Preparação para OBA e OBMEP</title>
+    <title>Olympius | Plataforma de Estudos de Alta Performance</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg-dark: #0b0f19;
-            --bg-card: #131b2e;
-            --accent-blue: #3b82f6;
-            --accent-purple: #8b5cf6;
-            --accent-cyan: #06b6d4;
-            --accent-gold: #f59e0b;
-            --text-main: #f3f4f6;
-            --text-muted: #9ca3af;
-            --border-color: rgba(255, 255, 255, 0.1);
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        /* Navbar */
-        nav {
-            background: rgba(11, 15, 25, 0.85);
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .glass-card {
+            background: rgba(15, 23, 42, 0.75);
             backdrop-filter: blur(12px);
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            border-bottom: 1px solid var(--border-color);
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 70px;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue), var(--accent-purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-decoration: none;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .nav-links a, .nav-links button {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: 500;
-            transition: color 0.2s;
-            background: none;
-            border: none;
-            cursor: pointer;
-        }
-
-        .nav-links a:hover, .nav-links button:hover {
-            color: var(--text-main);
-        }
-
-        .btn-google {
-            background: #ffffff;
-            color: #1f2937 !important;
-            padding: 8px 18px;
-            border-radius: 20px;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            text-decoration: none;
-            box-shadow: 0 2px 8px rgba(255,255,255,0.1);
-        }
-
-        .btn-google svg {
-            width: 16px;
-            height: 16px;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
-            color: white !important;
-            padding: 8px 20px;
-            border-radius: 20px;
-            font-weight: 600;
-            display: inline-block;
-            cursor: pointer;
-        }
-
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border-color);
-            color: var(--text-main) !important;
-            padding: 8px 20px;
-            border-radius: 20px;
-            font-weight: 600;
-        }
-
-        /* Hero Section */
-        .hero {
-            padding: 160px 0 100px 0;
-            text-align: center;
-            background: radial-gradient(circle at top center, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
-        }
-
-        .badge-hero {
-            background: rgba(59, 130, 246, 0.1);
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            color: var(--accent-cyan);
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            display: inline-block;
-            margin-bottom: 20px;
-        }
-
-        .hero h1 {
-            font-size: 3.2rem;
-            font-weight: 800;
-            line-height: 1.2;
-            margin-bottom: 20px;
-        }
-
-        .hero h1 span {
-            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            max-width: 700px;
-            margin: 0 auto 36px auto;
-        }
-
-        .hero-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-
-        .hero-buttons a, .hero-buttons button {
-            text-decoration: none;
-            padding: 14px 28px;
-            border-radius: 30px;
-            font-size: 1rem;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            cursor: pointer;
-            border: none;
-        }
-
-        .btn-google-large {
-            background: white;
-            color: #111827;
-            border: 1px solid #e5e7eb;
-        }
-
-        /* Features Section */
-        .features-section {
-            padding: 80px 0;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .grid-3 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
-        }
-
-        .col-3 {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 30px;
-        }
-
-        .card-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
-            background: rgba(59, 130, 246, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            color: var(--accent-cyan);
-        }
-
-        /* Modal de Autenticação */
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(11, 15, 25, 0.85);
-            backdrop-filter: blur(8px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-            padding: 20px;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-
-        .modal-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .modal-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 32px;
-            width: 100%;
-            max-width: 440px;
-            position: relative;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        .modal-tabs {
-            display: flex;
-            border-bottom: 1px solid var(--border-color);
-            margin-bottom: 24px;
-        }
-
-        .tab-btn {
-            flex: 1;
-            padding: 12px;
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            border-bottom: 2px solid transparent;
-            transition: all 0.2s;
-        }
-
-        .tab-btn.active {
-            color: var(--accent-cyan);
-            border-bottom-color: var(--accent-cyan);
-        }
-
-        .form-group {
-            margin-bottom: 16px;
-            text-align: left;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-bottom: 6px;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 12px 16px;
-            background: var(--bg-dark);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            color: var(--text-main);
-            font-size: 0.95rem;
-            outline: none;
-            transition: border-color 0.2s;
-        }
-
-        .form-group input:focus {
-            border-color: var(--accent-blue);
-        }
-
-        .btn-submit {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 8px;
-        }
-
-        .form-msg {
-            font-size: 0.85rem;
-            margin-top: 12px;
-            text-align: center;
-        }
-
-        .form-msg.error { color: #ef4444; }
-        .form-msg.success { color: #10b981; }
-
-        .hidden { display: none !important; }
-
-        /* Footer */
-        footer {
-            border-top: 1px solid var(--border-color);
-            padding: 40px 0;
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 0.9rem;
+        .glow-indigo {
+            box-shadow: 0 0 25px -5px rgba(99, 102, 241, 0.25);
         }
     </style>
 </head>
-<body>
+<body class="bg-slate-950 text-slate-100 antialiased selection:bg-indigo-500 selection:text-white min-h-screen flex flex-col justify-between">
 
-    <nav>
-        <div class="container">
-            <div class="nav-container">
-                <a href="index.html" class="logo">Olympius.ia</a>
-                <div class="nav-links">
-                    <a href="#solucao">Solução</a>
-                    
-                    <!-- Ações de Visitante -->
-                    <div id="nav-guest" class="nav-links">
-                        <button onclick="openAuthModal('login')" class="btn-secondary">Entrar</button>
-                        <button onclick="openAuthModal('register')" class="btn-primary">Criar Conta</button>
-                    </div>
-
-                    <!-- Ações de Usuário Logado -->
-                    <div id="nav-user" class="nav-links hidden">
-                        <span id="user-display" style="color: var(--accent-cyan); font-weight: 600;"></span>
-                        <a href="./app.html" class="btn-primary">Acessar Plataforma</a>
-                        <button onclick="logout()" class="btn-secondary">Sair</button>
-                    </div>
+    <!-- HEADER / NAVBAR -->
+    <header class="sticky top-0 z-40 bg-slate-950/80 backdrop-blur-xl border-b border-slate-800/80">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="bg-gradient-to-tr from-indigo-600 via-violet-600 to-cyan-400 p-2.5 rounded-xl text-white shadow-lg shadow-indigo-500/20">
+                    <i class="fa-solid fa-graduation-cap text-xl"></i>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-2xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-200 to-indigo-300 bg-clip-text text-transparent">Olympius</span>
+                    <span class="text-[10px] text-indigo-400 font-semibold tracking-widest uppercase -mt-1">Study Lab</span>
                 </div>
             </div>
-        </div>
-    </nav>
-
-    <section class="hero">
-        <div class="container">
-            <div class="badge-hero">🚀 Preparação de Alta Performance para OBA & OBMEP</div>
-            <h1>Conquiste sua Medalha Olímpica com <span>Inteligência Artificial</span></h1>
-            <p>Plataforma adaptativa de aprendizado e rede colaborativa para alunos do Ensino Fundamental e Médio superarem seus limites na Astronomia e Matemática.</p>
-            <div class="hero-buttons">
-                <button onclick="openAuthModal('register')" class="btn-primary" style="padding: 14px 28px;">Cadastre-se Gratuitamente</button>
-                <button onclick="openAuthModal('login')" class="btn-secondary" style="padding: 14px 28px;">Já tenho conta</button>
-            </div>
-        </div>
-    </section>
-
-    <section class="features-section" id="solucao">
-        <div class="container">
-            <div class="section-title">
-                <h2>Como Funciona o Olympius</h2>
-                <p>Combinação perfeita entre aprendizado guiado por IA e interação social comunitária.</p>
-            </div>
-            <div class="grid-3">
-                <div class="col-3">
-                    <div class="card-icon">🎯</div>
-                    <h3>Trilhas Adaptativas</h3>
-                    <p>Questões oficiais da OBA e OBMEP organizadas por níveis para evolução contínua.</p>
-                </div>
-                <div class="col-3">
-                    <div class="card-icon">🤖</div>
-                    <h3>Tutor Olympius.ia</h3>
-                    <p>IA treinada para fornecer dicas pedagógicas e raciocínio guiado sem dar a resposta pronta.</p>
-                </div>
-                <div class="col-3">
-                    <div class="card-icon">🏆</div>
-                    <h3>Rede & Gamificação</h3>
-                    <p>Compartilhe conquistas, resolva dúvidas em grupo e dispute a liderança no ranking nacional.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Modal Pop-up de Cadastro / Login -->
-    <div id="auth-modal" class="modal-overlay">
-        <div class="modal-card">
-            <button onclick="closeAuthModal()" class="modal-close">&times;</button>
             
-            <div class="modal-tabs">
-                <button id="tab-register" onclick="switchAuthTab('register')" class="tab-btn active">Criar Conta</button>
-                <button id="tab-login" onclick="switchAuthTab('login')" class="tab-btn">Entrar</button>
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
+                <a href="#solucao" class="hover:text-indigo-400 transition flex items-center gap-2"><i class="fa-solid fa-layer-group text-xs"></i> Plataforma</a>
+                <a href="#recursos" class="hover:text-indigo-400 transition flex items-center gap-2"><i class="fa-solid fa-bolt text-xs"></i> Recursos</a>
+                
+                <!-- MENU 3 PONTINHOS -->
+                <div class="relative">
+                    <button id="dots-menu-btn" onclick="toggleDotsMenu()" class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-indigo-500/50 hover:text-indigo-400 text-slate-300 transition flex items-center justify-center">
+                        <i class="fa-solid fa-ellipsis-vertical text-base"></i>
+                    </button>
+
+                    <!-- Dropdown dos 3 pontinhos -->
+                    <div id="dots-dropdown" class="hidden absolute right-0 mt-2 w-64 bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl p-2 z-50">
+                        <div class="px-3 py-2 border-b border-slate-800/80 mb-1">
+                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Materiais Olímpicos</span>
+                        </div>
+                        <button onclick="openMaterialsModal('oba')" class="w-full text-left px-3 py-2.5 text-xs font-medium text-slate-200 hover:bg-indigo-600/20 hover:text-indigo-300 rounded-xl transition flex items-center gap-2.5">
+                            <i class="fa-solid fa-meteor text-indigo-400"></i>
+                            <span>Materiais OBA (Astronomia)</span>
+                        </button>
+                        <button onclick="openMaterialsModal('obmep')" class="w-full text-left px-3 py-2.5 text-xs font-medium text-slate-200 hover:bg-violet-600/20 hover:text-violet-300 rounded-xl transition flex items-center gap-2.5">
+                            <i class="fa-solid fa-calculator text-violet-400"></i>
+                            <span>Materiais OBMEP (Matemática)</span>
+                        </button>
+                        <button onclick="openMaterialsModal('obr')" class="w-full text-left px-3 py-2.5 text-xs font-medium text-slate-200 hover:bg-emerald-600/20 hover:text-emerald-300 rounded-xl transition flex items-center gap-2.5">
+                            <i class="fa-solid fa-robot text-emerald-400"></i>
+                            <span>Materiais OBR (Robótica)</span>
+                        </button>
+                        <button onclick="openMaterialsModal('onee')" class="w-full text-left px-3 py-2.5 text-xs font-medium text-slate-200 hover:bg-amber-600/20 hover:text-amber-300 rounded-xl transition flex items-center gap-2.5">
+                            <i class="fa-solid fa-bolt text-amber-400"></i>
+                            <span>Materiais ONEE (Eficiência)</span>
+                        </button>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="flex items-center space-x-4">
+                <!-- Estado Deslogado -->
+                <div id="nav-guest-actions" class="flex items-center space-x-4">
+                    <button onclick="openAuthModal('login')" class="text-sm font-semibold text-slate-300 hover:text-white transition px-3 py-2">Entrar</button>
+                    <button onclick="openAuthModal('register')" class="bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold px-5 py-2.5 rounded-xl shadow-lg shadow-indigo-600/30 transition">Cadastre-se</button>
+                </div>
+                <!-- Estado Logado -->
+                <div id="nav-user-actions" class="hidden items-center space-x-4">
+                    <div class="flex items-center gap-2 bg-amber-500/10 border border-amber-500/20 px-3 py-1.5 rounded-xl text-amber-400 text-xs font-semibold">
+                        <i class="fa-solid fa-fire text-amber-500 animate-pulse"></i>
+                        <span>3 dias de ofensiva</span>
+                    </div>
+                    <span class="text-sm text-slate-300">Olá, <strong id="user-display-nav" class="text-indigo-400">Usuário</strong></span>
+                    <button id="logout-btn" class="bg-slate-900 hover:bg-slate-800 text-slate-300 text-xs font-semibold px-3.5 py-2 rounded-xl border border-slate-800 transition">Sair</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MODAL DE MATERIAIS -->
+    <div id="materials-modal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="relative w-full max-w-2xl bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-2xl">
+            <button onclick="closeMaterialsModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-lg transition">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="flex items-center gap-3 border-b border-slate-800 pb-4 mb-6">
+                <div id="materials-icon" class="p-3 rounded-xl bg-indigo-600/20 text-indigo-400 border border-indigo-500/30">
+                    <i class="fa-solid fa-folder-open text-xl"></i>
+                </div>
+                <div>
+                    <h3 id="materials-title" class="text-xl font-bold text-white">Central de Materiais</h3>
+                    <p class="text-xs text-slate-400">Apostilas, gabaritos e bancos de questões para download.</p>
+                </div>
             </div>
 
-            <!-- Formulário de Cadastro -->
-            <form id="register-form">
-                <div class="form-group">
-                    <label for="reg-username">Nome de Usuário</label>
-                    <input type="text" id="reg-username" placeholder="Ex: João Silva" required>
+            <div id="materials-list" class="space-y-3 max-h-[380px] overflow-y-auto pr-2">
+                <!-- Conteúdo dinâmico via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL POPUP DE AUTENTICAÇÃO -->
+    <div id="auth-modal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="relative w-full max-w-md bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-2xl">
+            <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-lg transition">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="flex border-b border-slate-800 mb-6">
+                <button id="tab-register" class="flex-1 pb-3 font-semibold text-center text-indigo-400 border-b-2 border-indigo-500 transition">Cadastrar-se</button>
+                <button id="tab-login" class="flex-1 pb-3 font-semibold text-center text-slate-400 border-b-2 border-transparent transition">Entrar</button>
+            </div>
+
+            <form id="register-form" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-medium text-slate-400 mb-1">Novo Usuário</label>
+                    <input type="text" id="reg-username" placeholder="Crie seu nome de usuário" required class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 text-sm">
                 </div>
-                <div class="form-group">
-                    <label for="reg-email">E-mail</label>
-                    <input type="email" id="reg-email" placeholder="seuemail@exemplo.com" required>
+                <div>
+                    <label class="block text-xs font-medium text-slate-400 mb-1">Senha</label>
+                    <input type="password" id="reg-password" placeholder="Crie uma senha segura" required class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 text-sm">
                 </div>
-                <div class="form-group">
-                    <label for="reg-password">Senha</label>
-                    <input type="password" id="reg-password" placeholder="Crie uma senha" required>
+                <div>
+                    <label class="block text-xs font-medium text-slate-400 mb-1">Confirmar Senha</label>
+                    <input type="password" id="reg-confirm-password" placeholder="Repita a senha" required class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 text-sm">
                 </div>
-                <div class="form-group">
-                    <label for="reg-confirm-password">Confirmar Senha</label>
-                    <input type="password" id="reg-confirm-password" placeholder="Repita a senha" required>
-                </div>
-                <button type="submit" class="btn-submit">Cadastrar e Salvar Conta</button>
-                <p id="reg-msg" class="form-msg hidden"></p>
+                <button type="submit" class="w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-xl shadow-lg shadow-indigo-600/30 transition text-sm">
+                    Cadastrar e Salvar Conta
+                </button>
+                <p id="reg-msg" class="text-xs text-center mt-2 hidden"></p>
             </form>
 
-            <!-- Formulário de Login -->
-            <form id="login-form" class="hidden">
-                <div class="form-group">
-                    <label for="login-email">E-mail ou Usuário</label>
-                    <input type="text" id="login-email" placeholder="Digite seu e-mail ou usuário" required>
+            <form id="login-form" class="space-y-4 hidden">
+                <div>
+                    <label class="block text-xs font-medium text-slate-400 mb-1">Usuário</label>
+                    <input type="text" id="login-username" placeholder="Digite seu usuário" required class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 text-sm">
                 </div>
-                <div class="form-group">
-                    <label for="login-password">Senha</label>
-                    <input type="password" id="login-password" placeholder="Digite sua senha" required>
+                <div>
+                    <label class="block text-xs font-medium text-slate-400 mb-1">Senha</label>
+                    <input type="password" id="login-password" placeholder="Digite sua senha" required class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 text-sm">
                 </div>
-                <button type="submit" class="btn-submit">Entrar na Conta</button>
-                <p id="login-msg" class="form-msg error hidden"></p>
+                <button type="submit" class="w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-xl shadow-lg shadow-indigo-600/30 transition text-sm">
+                    Entrar na Conta
+                </button>
+                <p id="login-msg" class="text-xs text-center mt-2 text-rose-500 hidden"></p>
             </form>
         </div>
     </div>
 
-    <footer>
-        <div class="container">
-            <p>© 2026 Olympius.ia — Plataforma de Estudo para OBA e OBMEP.</p>
+    <!-- VISÃO PÚBLICA (LANDING PAGE) -->
+    <div id="public-view">
+        <section class="relative pt-24 pb-20 overflow-hidden">
+            <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-900/30 via-slate-950 to-slate-950 -z-10"></div>
+            <div class="max-w-7xl mx-auto px-6 text-center">
+                <div class="inline-flex items-center space-x-2 bg-indigo-500/10 border border-indigo-500/20 px-4 py-2 rounded-full text-indigo-400 text-xs font-semibold uppercase tracking-wider mb-8 animate-pulse">
+                    <i class="fa-solid fa-sparkles"></i>
+                    <span>Ambiente de Estudos de Alta Performance</span>
+                </div>
+                <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white max-w-4xl mx-auto leading-tight">
+                    Domine as Olimpíadas Científicas com <span class="bg-gradient-to-r from-indigo-400 via-violet-400 to-cyan-400 bg-clip-text text-transparent">Olympius</span>
+                </h1>
+                <p class="mt-6 text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto font-normal">
+                    Estude de forma inteligente com tutor de IA adaptativo, rotinas pomodoro integradas e uma comunidade ativa de alunos olímpicos.
+                </p>
+                <div class="mt-10 flex justify-center gap-4">
+                    <button onclick="openAuthModal('register')" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-8 py-3.5 rounded-xl shadow-lg shadow-indigo-600/30 transition text-sm flex items-center gap-2">
+                        <span>Iniciar Sua Preparação</span>
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- CARACTERÍSTICAS / RECURSOS -->
+        <section id="solucao" class="py-20 border-t border-slate-900">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <span class="text-indigo-400 text-xs font-semibold uppercase tracking-wider">Metodologia de Estudos</span>
+                    <h2 class="text-3xl font-bold tracking-tight text-white mt-2">Tecnologia Desenvolvida para Resultados</h2>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8" id="recursos">
+                    <div class="glass-card p-8 rounded-2xl hover:border-indigo-500/40 transition">
+                        <div class="w-12 h-12 bg-indigo-600/10 border border-indigo-500/20 text-indigo-400 rounded-xl flex items-center justify-center text-xl mb-6">
+                            <i class="fa-solid fa-comments"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-3">Feed Colaborativo</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">Compartilhamento de resumos, rotinas de estudo e resoluções passo a passo.</p>
+                    </div>
+
+                    <div class="glass-card p-8 rounded-2xl hover:border-indigo-500/40 transition">
+                        <div class="w-12 h-12 bg-violet-600/10 border border-violet-500/20 text-violet-400 rounded-xl flex items-center justify-center text-xl mb-6">
+                            <i class="fa-solid fa-brain"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-3">Tutor OlymBot IA</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">Orientador inteligente que orienta o raciocínio sem entregar respostas de imediato.</p>
+                    </div>
+
+                    <div class="glass-card p-8 rounded-2xl hover:border-indigo-500/40 transition">
+                        <div class="w-12 h-12 bg-emerald-600/10 border border-emerald-500/20 text-emerald-400 rounded-xl flex items-center justify-center text-xl mb-6">
+                            <i class="fa-solid fa-fire"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-3">Gamificação & Foco</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">Acompanhamento de XP, ranking em tempo real e temporizador de estudos integrado.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- PAINEL PRIVADO / DASHBOARD DO ALUNO COM MENU LATERAL (SIDEBAR) -->
+    <div id="portal-view" class="hidden flex-1 flex flex-col md:flex-row">
+        
+        <!-- MENU LATERAL ESQUERDO (SIDEBAR DAS OLIMPÍADAS) -->
+        <aside class="w-full md:w-64 bg-slate-900/80 border-b md:border-b-0 md:border-r border-slate-800 p-4 shrink-0">
+            <div class="mb-4 px-2">
+                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Olimpíadas de Estudo</span>
+            </div>
+            <nav class="space-y-2">
+                <button onclick="switchTab('dashboard')" id="nav-tab-dashboard" class="olympiad-tab-btn w-full text-left px-3.5 py-3 rounded-xl text-xs font-semibold flex items-center gap-3 bg-indigo-600 text-white transition">
+                    <i class="fa-solid fa-house text-sm w-5"></i>
+                    <span>Visão Geral</span>
+                </button>
+                <button onclick="switchTab('oba')" id="nav-tab-oba" class="olympiad-tab-btn w-full text-left px-3.5 py-3 rounded-xl text-xs font-semibold flex items-center gap-3 text-slate-400 hover:text-white hover:bg-slate-800 transition">
+                    <i class="fa-solid fa-meteor text-indigo-400 text-sm w-5"></i>
+                    <span>OBA (Astronomia)</span>
+                </button>
+                <button onclick="switchTab('obmep')" id="nav-tab-obmep" class="olympiad-tab-btn w-full text-left px-3.5 py-3 rounded-xl text-xs font-semibold flex items-center gap-3 text-slate-400 hover:text-white hover:bg-slate-800 transition">
+                    <i class="fa-solid fa-calculator text-violet-400 text-sm w-5"></i>
+                    <span>OBMEP (Matemática)</span>
+                </button>
+                <button onclick="switchTab('obr')" id="nav-tab-obr" class="olympiad-tab-btn w-full text-left px-3.5 py-3 rounded-xl text-xs font-semibold flex items-center gap-3 text-slate-400 hover:text-white hover:bg-slate-800 transition">
+                    <i class="fa-solid fa-robot text-emerald-400 text-sm w-5"></i>
+                    <span>OBR (Robótica)</span>
+                </button>
+                <button onclick="switchTab('onee')" id="nav-tab-onee" class="olympiad-tab-btn w-full text-left px-3.5 py-3 rounded-xl text-xs font-semibold flex items-center gap-3 text-slate-400 hover:text-white hover:bg-slate-800 transition">
+                    <i class="fa-solid fa-bolt text-amber-400 text-sm w-5"></i>
+                    <span>ONEE (Eficiência)</span>
+                </button>
+            </nav>
+        </aside>
+
+        <!-- ÁREA DE CONTEÚDO PRINCIPAL -->
+        <main class="flex-1 p-6 max-w-7xl mx-auto w-full space-y-8">
+            
+            <!-- BANNER PRINCIPAL COM STATUS E CRONÔMETRO POMODORO INTEGRADO -->
+            <div class="glass-card p-6 rounded-2xl shadow-xl flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 border border-slate-800">
+                <div>
+                    <h2 class="text-2xl font-bold text-white flex items-center gap-3">
+                        <span>Central de Estudos</span>
+                        <span id="user-badge-level" class="text-xs px-3 py-1 bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 rounded-full font-semibold">Nível 1</span>
+                    </h2>
+                    <p class="text-slate-400 text-sm mt-1">Gerencie seu progresso diário, acumule XP e mantenha o foco nas questões olímpicas.</p>
+                </div>
+
+                <!-- WIDGET: CRONÔMETRO POMODORO -->
+                <div class="bg-slate-950/80 border border-slate-800 p-4 rounded-xl flex items-center gap-6 w-full lg:w-auto">
+                    <div class="text-center">
+                        <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">Foco Pomodoro</span>
+                        <span id="pomodoro-timer" class="text-2xl font-mono font-bold text-indigo-400">25:00</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button id="pomo-start-btn" onclick="togglePomodoro()" class="bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold px-3 py-2 rounded-lg transition">
+                            <i class="fa-solid fa-play text-[10px]"></i> Iniciar
+                        </button>
+                        <button onclick="resetPomodoro()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs px-3 py-2 rounded-lg transition">
+                            <i class="fa-solid fa-rotate-right text-[10px]"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- BARRA DE PROGRESSO XP -->
+                <div class="bg-slate-950/60 border border-slate-800 p-4 rounded-xl w-full lg:w-72">
+                    <div class="flex justify-between items-center text-xs text-slate-300 font-semibold mb-2">
+                        <span>Progresso Diário</span>
+                        <span id="xp-text-display" class="text-indigo-400">0 / 100 XP</span>
+                    </div>
+                    <div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
+                        <div id="xp-progress-bar" class="bg-gradient-to-r from-indigo-500 via-violet-500 to-cyan-400 h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
+                    </div>
+                    <p class="text-[11px] text-slate-500 mt-2 text-right">Próximo Nível: <span id="next-level-num">Nível 2</span></p>
+                </div>
+            </div>
+
+            <!-- ABA VISÃO GERAL (DASHBOARD) -->
+            <div id="content-tab-dashboard" class="olympiad-tab-content space-y-8">
+                <!-- ESTATÍSTICAS RÁPIDAS DE ESTUDO -->
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="glass-card p-5 rounded-2xl flex items-center justify-between">
+                        <div>
+                            <h3 class="text-slate-400 text-xs font-semibold uppercase tracking-wider mb-1">Sessão Ativa</h3>
+                            <div class="text-lg font-bold text-emerald-400 flex items-center gap-2">
+                                <span class="w-2.5 h-2.5 bg-emerald-500 rounded-full animate-ping"></span> Em Aprendizado
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-book-open text-2xl text-emerald-500/40"></i>
+                    </div>
+
+                    <div class="glass-card p-5 rounded-2xl flex items-center justify-between">
+                        <div>
+                            <h3 class="text-slate-400 text-xs font-semibold uppercase tracking-wider mb-1">Conquistas Emuladas</h3>
+                            <div class="text-2xl font-bold text-white"><span id="user-badges-count">0</span> / 4 Medalhas</div>
+                        </div>
+                        <i class="fa-solid fa-award text-2xl text-amber-500/40"></i>
+                    </div>
+
+                    <div class="glass-card p-5 rounded-2xl flex items-center justify-between">
+                        <div>
+                            <h3 class="text-slate-400 text-xs font-semibold uppercase tracking-wider mb-1">Comunidade de Estudos</h3>
+                            <div class="text-2xl font-bold text-white" id="registered-users-count">0</div>
+                        </div>
+                        <i class="fa-solid fa-users text-2xl text-indigo-500/40"></i>
+                    </div>
+                </div>
+
+                <!-- GRID PRINCIPAL -->
+                <div class="grid lg:grid-cols-3 gap-8">
+                    
+                    <!-- FEED COLABORATIVO E TUTOR IA -->
+                    <div class="lg:col-span-2 space-y-8">
+                        
+                        <!-- 1. FEED DE ESTUDOS -->
+                        <div class="glass-card rounded-2xl p-6 shadow-xl">
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-4 mb-6">
+                                <div class="flex items-center space-x-3">
+                                    <div class="bg-indigo-600/20 text-indigo-400 p-2.5 rounded-xl border border-indigo-500/20">
+                                        <i class="fa-solid fa-comments text-lg"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-lg font-bold text-white">Comunidade & Dicas de Estudo</h3>
+                                        <p class="text-xs text-slate-400">Compartilhe insights e questões com outros estudantes (+30 XP por publicação).</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <form id="feed-form" class="space-y-3 mb-6 bg-slate-950/80 p-4 rounded-xl border border-slate-800">
+                                <div class="flex gap-2">
+                                    <select id="post-type" class="bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-indigo-400 font-semibold focus:outline-none focus:border-indigo-500">
+                                        <option value="Dica de Estudo">💡 Dica de Estudo</option>
+                                        <option value="Resolução OBA/OBMEP">🧩 Resolução</option>
+                                        <option value="Rotina de Treino">📅 Planners & Rotinas</option>
+                                    </select>
+                                </div>
+                                <textarea id="post-content" rows="3" placeholder="Compartilhe uma sacada de estudo ou resolução detalhada..." required class="w-full px-4 py-3 bg-slate-900 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 text-sm resize-none"></textarea>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-[11px] text-slate-500">Mantenha as postagens focadas em aprendizado.</span>
+                                    <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-4 py-2 rounded-xl text-xs transition flex items-center gap-1.5 shadow-md shadow-indigo-600/20">
+                                        <i class="fa-solid fa-paper-plane text-xs"></i> Publicar (+30 XP)
+                                    </button>
+                                </div>
+                            </form>
+
+                            <div id="feed-posts-container" class="space-y-4 max-h-[420px] overflow-y-auto pr-1"></div>
+                        </div>
+
+                        <!-- 2. TUTOR DE IA INTEGRADO -->
+                        <div class="glass-card rounded-2xl p-6 shadow-xl">
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-4 mb-6">
+                                <div class="flex items-center space-x-3">
+                                    <div class="bg-violet-600/20 text-violet-400 p-2.5 rounded-xl border border-violet-500/20">
+                                        <i class="fa-solid fa-robot text-lg"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-lg font-bold text-white">Tutor Pedagógico (OlymBot)</h3>
+                                        <p class="text-xs text-slate-400">Receba orientações passo a passo para resolver questões difíceis (+20 XP).</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-col h-[360px] bg-slate-950/80 border border-slate-800 rounded-xl p-4">
+                                <div id="chat-box" class="flex-1 overflow-y-auto space-y-3 pr-1 text-sm">
+                                    <div class="flex items-start gap-2.5">
+                                        <div class="w-7 h-7 rounded-lg bg-violet-600 flex items-center justify-center text-white text-xs shrink-0">
+                                            <i class="fa-solid fa-robot"></i>
+                                        </div>
+                                        <div class="bg-slate-900 border border-slate-800 p-3.5 rounded-2xl rounded-tl-none text-slate-300 max-w-[85%] text-xs leading-relaxed">
+                                            Olá! Sou o OlymBot. Digite a questão de Matemática ou Astronomia que deseja analisar para receber dicas de resolução sem spoiler do resultado final.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <form id="chat-form" class="mt-3 flex gap-2">
+                                    <input type="text" id="chat-input" placeholder="Ex: Como resolver problemas de contagem ou Leis de Kepler..." required class="flex-1 bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500">
+                                    <button type="submit" class="bg-violet-600 hover:bg-violet-500 text-white font-semibold px-4 py-2.5 rounded-xl text-xs transition flex items-center gap-1">
+                                        <i class="fa-solid fa-location-arrow"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- GAMIFICAÇÃO & RANKING -->
+                    <div class="space-y-8">
+                        <div class="glass-card rounded-2xl p-6 shadow-xl">
+                            <div class="flex items-center space-x-3 border-b border-slate-800 pb-4 mb-6">
+                                <div class="bg-amber-600/20 text-amber-400 p-2.5 rounded-xl border border-amber-500/20">
+                                    <i class="fa-solid fa-trophy text-lg"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-bold text-white">Medalhas de Estudo</h3>
+                                    <p class="text-xs text-slate-400">Conquistas desbloqueadas.</p>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-3" id="badges-grid"></div>
+                        </div>
+
+                        <div class="glass-card rounded-2xl p-6 shadow-xl">
+                            <div class="flex items-center space-x-3 border-b border-slate-800 pb-4 mb-6">
+                                <div class="bg-emerald-600/20 text-emerald-400 p-2.5 rounded-xl border border-emerald-500/20">
+                                    <i class="fa-solid fa-ranking-star text-lg"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-bold text-white">Ranking da Semana</h3>
+                                    <p class="text-xs text-slate-400">Pontuação acumulada no estudo.</p>
+                                </div>
+                            </div>
+                            <div id="leaderboard-container" class="space-y-3"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ABA OBA (ASTRONOMIA) -->
+            <div id="content-tab-oba" class="olympiad-tab-content hidden space-y-6">
+                <div class="glass-card p-6 rounded-2xl border border-indigo-500/30">
+                    <div class="flex items-center gap-3 mb-4">
+                        <i class="fa-solid fa-meteor text-3xl text-indigo-400"></i>
+                        <div>
+                            <h3 class="text-xl font-bold text-white">Olimpíada Brasileira de Astronomia e Astronáutica</h3>
+                            <p class="text-xs text-slate-400">Trilha de estudos focada em Astronomia, Leis de Kepler e Exploração Espacial.</p>
+                        </div>
+                    </div>
+
+                    <!-- ABA MATERIAIS OLÍMPICOS / PROVAS ANTERIORES - OBA -->
+                    <div class="mt-6 border-t border-slate-800/80 pt-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h4 class="text-sm font-bold text-indigo-300 flex items-center gap-2">
+                                <i class="fa-solid fa-folder-open text-indigo-400"></i>
+                                <span>Material Oficial de Estudos - OBA</span>
+                            </h4>
+                            <button onclick="openMaterialsModal('oba')" class="bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold py-1.5 px-3 rounded-lg transition">
+                                Abrir no Modal
+                            </button>
+                        </div>
+
+                        <div class="grid md:grid-cols-1 gap-3">
+                            <div class="p-4 bg-slate-950/80 border border-slate-800 rounded-xl flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-bold text-white">Prova 27ª OBA (2024) - Nível 4</p>
+                                    <p class="text-xs text-slate-400">Caderno oficial da prova presencial do Nível 4 (Ensino Médio).</p>
+                                </div>
+                                <button onclick="openMaterialsModal('oba')" class="text-xs text-indigo-400 hover:text-indigo-300 font-semibold flex items-center gap-1 bg-indigo-600/10 px-3 py-2 rounded-lg border border-indigo-500/20 transition">
+                                    <span>Baixar Prova PDF</span> <i class="fa-solid fa-download text-[10px]"></i>
+                                </button>
+                            </div>
+                            <div class="p-4 bg-slate-950/80 border border-slate-800 rounded-xl flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-bold text-white">Prova 27ª OBA (2024) - Nível 3</p>
+                                    <p class="text-xs text-slate-400">Caderno oficial da prova presencial do Nível 3 (6º ao 9º ano).</p>
+                                </div>
+                                <button onclick="openMaterialsModal('oba')" class="text-xs text-indigo-400 hover:text-indigo-300 font-semibold flex items-center gap-1 bg-indigo-600/10 px-3 py-2 rounded-lg border border-indigo-500/20 transition">
+                                    <span>Baixar Prova PDF</span> <i class="fa-solid fa-download text-[10px]"></i>
+                                </button>
+                            </div>
+                            <div class="p-4 bg-slate-950/80 border border-slate-800 rounded-xl flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-bold text-white">Prova 27ª OBA (2024) - Nível 2</p>
+                                    <p class="text-xs text-slate-400">Caderno oficial da prova presencial do Nível 2 (4º e 5º ano).</p>
+                                </div>
+                                <button onclick="openMaterialsModal('oba')" class="text-xs text-indigo-400 hover:text-indigo-300 font-semibold flex items-center gap-1 bg-indigo-600/10 px-3 py-2 rounded-lg border border-indigo-500/20 transition">
+                                    <span>Baixar Prova PDF</span> <i class="fa-solid fa-download text-[10px]"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-4 mt-6">
+                        <div class="bg-slate-950/80 p-4 rounded-xl border border-slate-800">
+                            <h4 class="text-sm font-bold text-indigo-300 mb-2"><i class="fa-solid fa-book-bookmark mr-2"></i>Tópicos Recorrentes</h4>
+                            <ul class="text-xs text-slate-300 space-y-2 list-disc list-inside">
+                                <li>Período Sinódico & Mecânica Celeste</li>
+                                <li>Topografia Lunar & Leis de Kepler</li>
+                                <li>Diagrama HR e Classificação Estelar</li>
+                                <li>Astronáutica, Foguetes & Leis de Newton</li>
+                            </ul>
+                        </div>
+                        <div class="bg-slate-950/80 p-4 rounded-xl border border-slate-800 flex flex-col justify-between">
+                            <div>
+                                <h4 class="text-sm font-bold text-indigo-300 mb-2"><i class="fa-solid fa-download mr-2"></i>Acesso Direto ao Acervo</h4>
+                                <p class="text-xs text-slate-400">Acesse os cadernos completos da 27ª OBA 2024 (Níveis 2, 3 e 4).</p>
+                            </div>
+                            <button onclick="openMaterialsModal('oba')" class="mt-4 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold py-2.5 px-4 rounded-xl transition">
+                                Abrir Materiais OBA 2024
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ABA OBMEP (MATEMÁTICA) -->
+            <div id="content-tab-obmep" class="olympiad-tab-content hidden space-y-6">
+                <div class="glass-card p-6 rounded-2xl border border-violet-500/30">
+                    <div class="flex items-center gap-3 mb-4">
+                        <i class="fa-solid fa-calculator text-3xl text-violet-400"></i>
+                        <div>
+                            <h3 class="text-xl font-bold text-white">Olimpíada Brasileira de Matemática das Escolas Públicas</h3>
+                            <p class="text-xs text-slate-400">Treinamento avançado de raciocínio lógico, geometria e combinatória.</p>
+                        </div>
+                    </div>
+
+                    <!-- ABA MATERIAIS OLÍMPICOS / PROVAS ANTERIORES - OBMEP -->
+                    <div class="mt-6 border-t border-slate-800/80 pt-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h4 class="text-sm font-bold text-violet-300 flex items-center gap-2">
+                                <i class="fa-solid fa-folder-open text-violet-400"></i>
+                                <span>Materiais Olímpicos & Provas Anteriores</span>
+                            </h4>
+                            <button onclick="openMaterialsModal('obmep')" class="bg-violet-600 hover:bg-violet-500 text-white text-xs font-semibold py-1.5 px-3 rounded-lg transition">
+                                Ver Todos no Modal
+                            </button>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-3">
+                            <div class="p-3 bg-slate-950/80 border border-slate-800 rounded-xl flex items-center justify-between">
+                                <div>
+                                    <p class="text-xs font-bold text-white">Provas OBMEP 1ª Fase (2022-2023)</p>
+                                    <p class="text-[11px] text-slate-400">Questões de múltipla escolha com gabarito.</p>
+                                </div>
+                                <button onclick="openMaterialsModal('obmep')" class="text-xs text-violet-400 hover:text-violet-300 font-semibold flex items-center gap-1">
+                                    <span>Baixar</span> <i class="fa-solid fa-download text-[10px]"></i>
+                                </button>
+                            </div>
+
+                            <div class="p-3 bg-slate-950/80 border border-slate-800 rounded-xl flex items-center justify-between">
+                                <div>
+                                    <p class="text-xs font-bold text-white">Provas OBMEP 2ª Fase & Soluções</p>
+                                    <p class="text-[11px] text-slate-400">Provas discursivas com resoluções detalhadas passo a passo.</p>
+                                </div>
+                                <button onclick="openMaterialsModal('obmep')" class="text-xs text-violet-400 hover:text-violet-300 font-semibold flex items-center gap-1">
+                                    <span>Baixar</span> <i class="fa-solid fa-download text-[10px]"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-4 mt-6">
+                        <div class="bg-slate-950/80 p-4 rounded-xl border border-slate-800">
+                            <h4 class="text-sm font-bold text-violet-300 mb-2"><i class="fa-solid fa-brain mr-2"></i>Tópicos Recorrentes</h4>
+                            <ul class="text-xs text-slate-300 space-y-2 list-disc list-inside">
+                                <li>Lógica e Problemas de Raciocínio</li>
+                                <li>Geometria Plana e Áreas</li>
+                                <li>Análise Combinatória e Contagem</li>
+                                <li>Teoria dos Números e Paridade</li>
+                            </ul>
+                        </div>
+                        <div class="bg-slate-950/80 p-4 rounded-xl border border-slate-800 flex flex-col justify-between">
+                            <div>
+                                <h4 class="text-sm font-bold text-violet-300 mb-2"><i class="fa-solid fa-download mr-2"></i>Acesso Direto ao Acervo</h4>
+                                <p class="text-xs text-slate-400">Acesse gabaritos e bancos de soluções detalhadas.</p>
+                            </div>
+                            <button onclick="openMaterialsModal('obmep')" class="mt-4 bg-violet-600 hover:bg-violet-500 text-white text-xs font-semibold py-2.5 px-4 rounded-xl transition">
+                                Abrir Banco de Questões
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ABA OBR (ROBÓTICA) -->
+            <div id="content-tab-obr" class="olympiad-tab-content hidden space-y-6">
+                <div class="glass-card p-6 rounded-2xl border border-emerald-500/30">
+                    <div class="flex items-center gap-3 mb-4">
+                        <i class="fa-solid fa-robot text-3xl text-emerald-400"></i>
+                        <div>
+                            <h3 class="text-xl font-bold text-white">Olimpíada Brasileira de Robótica</h3>
+                            <p class="text-xs text-slate-400">Lógica de programação, robótica prática, sensores e atuadores.</p>
+                        </div>
+                    </div>
+
+                    <!-- ABA MATERIAIS OLÍMPICOS / PROVAS ANTERIORES - OBR -->
+                    <div class="mt-6 border-t border-slate-800/80 pt-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h4 class="text-sm font-bold text-emerald-300 flex items-center gap-2">
+                                <i class="fa-solid fa-folder-open text-emerald-400"></i>
+                                <span>Material Oficial de Estudos - OBR</span>
+                            </h4>
+                            <button onclick="openMaterialsModal('obr')" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold py-1.5 px-3 rounded-lg transition">
+                                Abrir no Modal
+                            </button>
+                        </div>
+
+                        <div class="grid md:grid-cols-1 gap-3">
+                            <div class="p-4 bg-slate-950/80 border border-slate-800 rounded-xl flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-bold text-white">OBR 2026 - Manual de Estudos (Modalidade Teórica - Níveis 0 a 5)</p>
+                                    <p class="text-xs text-slate-400">Manual oficial contendo o detalhamento completo dos conteúdos curriculares da BNCC e robótica.</p>
+                                </div>
+                                <button onclick="openMaterialsModal('obr')" class="text-xs text-emerald-400 hover:text-emerald-300 font-semibold flex items-center gap-1 bg-emerald-600/10 px-3 py-2 rounded-lg border border-emerald-500/20 transition">
+                                    <span>Baixar PDF</span> <i class="fa-solid fa-download text-[10px]"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-4 mt-6">
+                        <div class="bg-slate-950/80 p-4 rounded-xl border border-slate-800">
+                            <h4 class="text-sm font-bold text-emerald-300 mb-2"><i class="fa-solid fa-microchip mr-2"></i>Tópicos Recorrentes</h4>
+                            <ul class="text-xs text-slate-300 space-y-2 list-disc list-inside">
+                                <li>Estruturas de Decisão e Programação (C/C++, Python, Blocos)</li>
+                                <li>Sensores de Cor, Ultrassônico e Infravermelho</li>
+                                <li>Resgate e Seguidor de Linha</li>
+                                <li>Componentes Mecânicos e Cinemática</li>
+                            </ul>
+                        </div>
+                        <div class="bg-slate-950/80 p-4 rounded-xl border border-slate-800 flex flex-col justify-between">
+                            <div>
+                                <h4 class="text-sm font-bold text-emerald-300 mb-2"><i class="fa-solid fa-code mr-2"></i>Acesso Direto ao Acervo</h4>
+                                <p class="text-xs text-slate-400">Estude com o Manual Oficial da Modalidade Teórica OBR 2026.</p>
+                            </div>
+                            <button onclick="openMaterialsModal('obr')" class="mt-4 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold py-2.5 px-4 rounded-xl transition">
+                                Abrir Material OBR
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ABA ONEE (EFICIÊNCIA ENERGÉTICA) -->
+            <div id="content-tab-onee" class="olympiad-tab-content hidden space-y-6">
+                <div class="glass-card p-6 rounded-2xl border border-amber-500/30">
+                    <div class="flex items-center gap-3 mb-4">
+                        <i class="fa-solid fa-bolt text-3xl text-amber-400"></i>
+                        <div>
+                            <h3 class="text-xl font-bold text-white">Olimpíada Nacional de Eficiência Energética</h3>
+                            <p class="text-xs text-slate-400">Sustentabilidade, consumo consciente e física aplicada de energia.</p>
+                        </div>
+                    </div>
+
+                    <!-- ABA MATERIAIS OLÍMPICOS / PROVAS ANTERIORES - ONEE -->
+                    <div class="mt-6 border-t border-slate-800/80 pt-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h4 class="text-sm font-bold text-amber-300 flex items-center gap-2">
+                                <i class="fa-solid fa-folder-open text-amber-400"></i>
+                                <span>Materiais Olímpicos & Provas Anteriores</span>
+                            </h4>
+                            <button onclick="openMaterialsModal('onee')" class="bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold py-1.5 px-3 rounded-lg transition">
+                                Ver Todos no Modal
+                            </button>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-3">
+                            <div class="p-3 bg-slate-950/80 border border-slate-800 rounded-xl flex items-center justify-between">
+                                <div>
+                                    <p class="text-xs font-bold text-white">Simulados e Provas Anteriores ONEE</p>
+                                    <p class="text-[11px] text-slate-400">Questões sobre consumo elétrico (kWh) e matriz energética.</p>
+                                </div>
+                                <button onclick="openMaterialsModal('onee')" class="text-xs text-amber-400 hover:text-amber-300 font-semibold flex items-center gap-1">
+                                    <span>Baixar</span> <i class="fa-solid fa-download text-[10px]"></i>
+                                </button>
+                            </div>
+
+                            <div class="p-3 bg-slate-950/80 border border-slate-800 rounded-xl flex items-center justify-between">
+                                <div>
+                                    <p class="text-xs font-bold text-white">Guias Temáticos & Apostilas ONEE</p>
+                                    <p class="text-[11px] text-slate-400">Sustentabilidade, uso consciente e tecnologias eficientes.</p>
+                                </div>
+                                <button onclick="openMaterialsModal('onee')" class="text-xs text-amber-400 hover:text-amber-300 font-semibold flex items-center gap-1">
+                                    <span>Baixar</span> <i class="fa-solid fa-download text-[10px]"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-4 mt-6">
+                        <div class="bg-slate-950/80 p-4 rounded-xl border border-slate-800">
+                            <h4 class="text-sm font-bold text-amber-300 mb-2"><i class="fa-solid fa-plug mr-2"></i>Tópicos Recorrentes</h4>
+                            <ul class="text-xs text-slate-300 space-y-2 list-disc list-inside">
+                                <li>Fontes de Energia Renováveis e Não Renováveis</li>
+                                <li>Cálculo de Consumo Elétrico (kWh) e Potência</li>
+                                <li>Sustentabilidade e Mudanças Climáticas</li>
+                                <li>Uso Consciente e Tecnologias Eficientes</li>
+                            </ul>
+                        </div>
+                        <div class="bg-slate-950/80 p-4 rounded-xl border border-slate-800 flex flex-col justify-between">
+                            <div>
+                                <h4 class="text-sm font-bold text-amber-300 mb-2"><i class="fa-solid fa-leaf mr-2"></i>Acesso Direto ao Acervo</h4>
+                                <p class="text-xs text-slate-400">Pratique com simulados e guias focados na ONEE.</p>
+                            </div>
+                            <button onclick="openMaterialsModal('onee')" class="mt-4 bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold py-2.5 px-4 rounded-xl transition">
+                                Abrir Materiais ONEE
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-slate-900 py-8 bg-slate-950 mt-auto">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center space-x-2">
+                <div class="bg-indigo-600 p-2 rounded-lg text-white text-xs">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <span class="text-lg font-bold text-white">Olympius Study</span>
+            </div>
+            <p class="text-xs text-slate-500">&copy; 2026 Olympius. Plataforma para Estudos Olímpicos.</p>
         </div>
     </footer>
 
+    <!-- LÓGICA JAVASCRIPT -->
     <script>
-        // Elementos do DOM
+        const publicView = document.getElementById('public-view');
+        const portalView = document.getElementById('portal-view');
         const authModal = document.getElementById('auth-modal');
+        
+        const navGuestActions = document.getElementById('nav-guest-actions');
+        const navUserActions = document.getElementById('nav-user-actions');
+        const userDisplayNav = document.getElementById('user-display-nav');
+        const registeredUsersCount = document.getElementById('registered-users-count');
+
         const tabRegister = document.getElementById('tab-register');
         const tabLogin = document.getElementById('tab-login');
         const registerForm = document.getElementById('register-form');
         const loginForm = document.getElementById('login-form');
+
         const regMsg = document.getElementById('reg-msg');
         const loginMsg = document.getElementById('login-msg');
-        const navGuest = document.getElementById('nav-guest');
-        const navUser = document.getElementById('nav-user');
-        const userDisplay = document.getElementById('user-display');
+        const logoutBtn = document.getElementById('logout-btn');
 
-        // Utilitários do Banco de Dados Local (LocalStorage)
+        const feedForm = document.getElementById('feed-form');
+        const feedPostsContainer = document.getElementById('feed-posts-container');
+        const chatForm = document.getElementById('chat-form');
+        const chatInput = document.getElementById('chat-input');
+        const chatBox = document.getElementById('chat-box');
+        const xpProgressBar = document.getElementById('xp-progress-bar');
+        const xpTextDisplay = document.getElementById('xp-text-display');
+        const userBadgeLevel = document.getElementById('user-badge-level');
+        const nextLevelNum = document.getElementById('next-level-num');
+        const userBadgesCount = document.getElementById('user-badges-count');
+        const badgesGrid = document.getElementById('badges-grid');
+        const leaderboardContainer = document.getElementById('leaderboard-container');
+
+        // LÓGICA DO MENU LATERAL E ABAS DE OLIMPÍADAS
+        function switchTab(tabKey) {
+            document.querySelectorAll('.olympiad-tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.olympiad-tab-btn').forEach(btn => {
+                btn.className = "olympiad-tab-btn w-full text-left px-3.5 py-3 rounded-xl text-xs font-semibold flex items-center gap-3 text-slate-400 hover:text-white hover:bg-slate-800 transition";
+            });
+
+            const activeContent = document.getElementById(`content-tab-${tabKey}`);
+            const activeBtn = document.getElementById(`nav-tab-${tabKey}`);
+
+            if (activeContent) activeContent.classList.remove('hidden');
+            if (activeBtn) activeBtn.className = "olympiad-tab-btn w-full text-left px-3.5 py-3 rounded-xl text-xs font-semibold flex items-center gap-3 bg-indigo-600 text-white transition";
+        }
+
+        // LÓGICA DO DROPDOWN E MODAL DE MATERIAIS
+        const dotsDropdown = document.getElementById('dots-dropdown');
+        const materialsModal = document.getElementById('materials-modal');
+        const materialsTitle = document.getElementById('materials-title');
+        const materialsIcon = document.getElementById('materials-icon');
+        const materialsList = document.getElementById('materials-list');
+
+        function toggleDotsMenu() {
+            dotsDropdown.classList.toggle('hidden');
+        }
+
+        document.addEventListener('click', (e) => {
+            const btn = document.getElementById('dots-menu-btn');
+            if (btn && !btn.contains(e.target) && !dotsDropdown.contains(e.target)) {
+                dotsDropdown.classList.add('hidden');
+            }
+        });
+
+        const MATERIALS_DATA = {
+            oba: {
+                title: "Material Oficial de Estudos - OBA (Astronomia)",
+                icon: "fa-meteor",
+                color: "text-indigo-400 bg-indigo-600/20 border-indigo-500/30",
+                items: [
+                    { 
+                        name: "Prova do Nível 4 - 27ª OBA (2024)", 
+                        desc: "Prova oficial aplicada para o Ensino Médio contendo questões de Astronomia e Astronáutica.", 
+                        type: "PDF", 
+                        file: "c5_pEYAopDw9l1bqFW3okrQ517380936826799347225e4d_prova-nivel-4-da-27-oba-de-2024-compactado.pdf" 
+                    },
+                    { 
+                        name: "Prova do Nível 3 - 27ª OBA (2024)", 
+                        desc: "Prova oficial aplicada do 6º ao 9º ano do Ensino Fundamental contendo questões de Astronomia e Astronáutica.", 
+                        type: "PDF", 
+                        file: "c5_t1OnNh5RXyfVqAQddMel81738093666679934620f42f_prova-nivel-3-da-27-oba-de-2024-compactado.pdf" 
+                    },
+                    { 
+                        name: "Prova do Nível 2 - 27ª OBA (2024)", 
+                        desc: "Prova oficial aplicada do 4º e 5º ano do Ensino Fundamental contendo questões de Astronomia e Astronáutica.", 
+                        type: "PDF", 
+                        file: "c5_zM5tEL1AprH9uWh0aJ0B817380936546799345674976_prova-nivel-2-da-27-oba-de-2024-compactado.pdf" 
+                    }
+                ]
+            },
+            obmep: {
+                title: "Provas Antigas e Gabaritos - OBMEP (Matemática)",
+                icon: "fa-calculator",
+                color: "text-violet-400 bg-violet-600/20 border-violet-500/30",
+                items: [
+                    { name: "Prova OBMEP 2023 - 1ª Fase (Nível 1)", desc: "Caderno de questões oficial", type: "PDF", file: "https://obmep.org.br/provas_static/2023/fase1_nivel1.pdf" },
+                    { name: "Gabarito OBMEP 2023 - 1ª Fase", desc: "Gabarito oficial das questões", type: "PDF", file: "https://obmep.org.br/provas_static/2023/gabarito_fase1_nivel1.pdf" },
+                    { name: "Prova OBMEP 2023 - 2ª Fase (Nível 1)", desc: "Caderno de questões discursivas", type: "PDF", file: "https://obmep.org.br/provas_static/2023/fase2_nivel1.pdf" },
+                    { name: "Gabarito OBMEP 2023 - 2ª Fase", desc: "Soluções detalhadas das questões", type: "PDF", file: "https://obmep.org.br/provas_static/2023/solucoes_fase2_nivel1.pdf" }
+                ]
+            },
+            obr: {
+                title: "Material Oficial de Estudos - OBR (Robótica)",
+                icon: "fa-robot",
+                color: "text-emerald-400 bg-emerald-600/20 border-emerald-500/30",
+                items: [
+                    { 
+                        name: "OBR 2026 - Manual de Estudos (Modalidade Teórica - Níveis 0 a 5)", 
+                        desc: "Manual oficial detalhando diretrizes, código de conduta e conteúdos curriculares (BNCC) para as provas teóricas.", 
+                        type: "PDF", 
+                        file: "OBR2026_MT_Manual-de-Estudos.pdf" 
+                    }
+                ]
+            },
+            onee: {
+                title: "Simulados e Materiais - ONEE (Eficiência Energética)",
+                icon: "fa-bolt",
+                color: "text-amber-400 bg-amber-600/20 border-amber-500/30",
+                items: [
+                    { name: "Simulado Oficial ONEE", desc: "Banco de questões sobre consumo e energia", type: "PDF", file: "#" },
+                    { name: "Apostila de Estudos ONEE", desc: "Guia completo sobre sustentabilidade e física energética", type: "PDF", file: "#" }
+                ]
+            }
+        };
+
+        function openMaterialsModal(type) {
+            dotsDropdown.classList.add('hidden');
+            const data = MATERIALS_DATA[type];
+            if (!data) return;
+
+            materialsTitle.textContent = data.title;
+            materialsIcon.className = `p-3 rounded-xl border ${data.color}`;
+            materialsIcon.innerHTML = `<i class="fa-solid ${data.icon} text-xl"></i>`;
+
+            materialsList.innerHTML = data.items.map(item => `
+                <div class="p-4 bg-slate-950/80 border border-slate-800 rounded-xl flex items-center justify-between hover:border-slate-700 transition">
+                    <div>
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="text-xs font-bold text-white">${item.name}</span>
+                            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-800 text-indigo-400 font-semibold">${item.type}</span>
+                        </div>
+                        <p class="text-xs text-slate-400">${item.desc}</p>
+                    </div>
+                    <a href="${item.file}" target="_blank" rel="noopener noreferrer" download class="bg-indigo-600/20 hover:bg-indigo-600 text-indigo-300 hover:text-white px-3 py-1.5 rounded-lg text-xs font-semibold border border-indigo-500/30 transition flex items-center gap-1.5 shrink-0">
+                        <i class="fa-solid fa-file-pdf text-[10px]"></i> Baixar PDF
+                    </a>
+                </div>
+            `).join('');
+
+            materialsModal.classList.remove('hidden');
+        }
+
+        function closeMaterialsModal() {
+            materialsModal.classList.add('hidden');
+        }
+
+        // LÓGICA DO POMODORO TIMER
+        let pomoSeconds = 1500;
+        let pomoInterval = null;
+        let isPomoRunning = false;
+
+        function updatePomoDisplay() {
+            const mins = Math.floor(pomoSeconds / 60);
+            const secs = pomoSeconds % 60;
+            document.getElementById('pomodoro-timer').textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+        }
+
+        function togglePomodoro() {
+            const btn = document.getElementById('pomo-start-btn');
+            if (!isPomoRunning) {
+                isPomoRunning = true;
+                btn.innerHTML = '<i class="fa-solid fa-pause text-[10px]"></i> Pausar';
+                pomoInterval = setInterval(() => {
+                    if (pomoSeconds > 0) {
+                        pomoSeconds--;
+                        updatePomoDisplay();
+                    } else {
+                        clearInterval(pomoInterval);
+                        alert("Sessão Pomodoro concluída! Ganhou +15 XP pelo tempo de foco.");
+                        addXP(15);
+                        resetPomodoro();
+                    }
+                }, 1000);
+            } else {
+                clearInterval(pomoInterval);
+                isPomoRunning = false;
+                btn.innerHTML = '<i class="fa-solid fa-play text-[10px]"></i> Iniciar';
+            }
+        }
+
+        function resetPomodoro() {
+            clearInterval(pomoInterval);
+            isPomoRunning = false;
+            pomoSeconds = 1500;
+            updatePomoDisplay();
+            document.getElementById('pomo-start-btn').innerHTML = '<i class="fa-solid fa-play text-[10px]"></i> Iniciar';
+        }
+
+        const BADGES_LIST = [
+            { id: 'first_step', title: 'Primeiro Passo', desc: 'Acessou o laboratório', icon: 'fa-shoe-prints' },
+            { id: 'feed_pioneer', title: 'Mentor de Estudos', desc: 'Publicou uma dica ou ajuda', icon: 'fa-bullhorn' },
+            { id: 'ai_thinker', title: 'Mente Analítica', desc: 'Usou o Tutor de IA', icon: 'fa-brain' },
+            { id: 'gold_star', title: 'Foco Olímpico', desc: 'Alcançou o Nível 2 ou superior', icon: 'fa-star' }
+        ];
+
         function getUsers() {
-            const users = localStorage.getItem('olympius_users');
+            const users = localStorage.getItem('users_db');
             return users ? JSON.parse(users) : [];
         }
 
         function saveUsers(users) {
-            localStorage.setItem('olympius_users', JSON.stringify(users));
+            localStorage.setItem('users_db', JSON.stringify(users));
         }
 
-        // Funções do Modal
-        function openAuthModal(mode = 'register') {
-            switchAuthTab(mode);
-            authModal.classList.add('active');
+        function getUserStats(username) {
+            const stats = localStorage.getItem(`user_stats_${username}`);
+            return stats ? JSON.parse(stats) : { xp: 0, badges: ['first_step'], postsCount: 0, aiQuestions: 0 };
+        }
+
+        function saveUserStats(username, stats) {
+            localStorage.setItem(`user_stats_${username}`, JSON.stringify(stats));
+        }
+
+        function addXP(amount) {
+            const activeUser = localStorage.getItem('logged_user');
+            if (!activeUser) return;
+
+            let stats = getUserStats(activeUser);
+            stats.xp += amount;
+
+            if (stats.xp >= 100 && !stats.badges.includes('gold_star')) {
+                stats.badges.push('gold_star');
+            }
+
+            saveUserStats(activeUser, stats);
+            updateGamificationUI();
+        }
+
+        function updateGamificationUI() {
+            const activeUser = localStorage.getItem('logged_user');
+            if (!activeUser) return;
+
+            const stats = getUserStats(activeUser);
+            const level = Math.floor(stats.xp / 100) + 1;
+            const currentLevelXP = stats.xp % 100;
+
+            userBadgeLevel.textContent = `Nível ${level}`;
+            xpTextDisplay.textContent = `${currentLevelXP} / 100 XP`;
+            xpProgressBar.style.width = `${currentLevelXP}%`;
+            nextLevelNum.textContent = `Nível ${level + 1}`;
+            userBadgesCount.textContent = stats.badges.length;
+
+            badgesGrid.innerHTML = BADGES_LIST.map(badge => {
+                const unlocked = stats.badges.includes(badge.id);
+                return `
+                    <div class="p-3 rounded-xl border ${unlocked ? 'bg-slate-950/80 border-indigo-500/40' : 'bg-slate-950/20 border-slate-800/60 opacity-40'} flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-lg ${unlocked ? 'bg-indigo-600/20 text-indigo-400' : 'bg-slate-800 text-slate-500'} flex items-center justify-center text-sm shrink-0">
+                            <i class="fa-solid ${badge.icon}"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-xs font-bold text-white">${badge.title}</h4>
+                            <p class="text-[10px] text-slate-400">${badge.desc}</p>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            renderLeaderboard(activeUser, stats.xp);
+        }
+
+        function renderLeaderboard(activeUser, userXP) {
+            const dummyUsers = [
+                { name: 'Ana Clara (OBMEP)', xp: 340 },
+                { name: 'Gabriel Astro', xp: 210 },
+                { name: 'Beatriz_OBA', xp: 150 }
+            ];
+
+            let allRanked = [...dummyUsers, { name: activeUser, xp: userXP }];
+            allRanked.sort((a, b) => b.xp - a.xp);
+
+            leaderboardContainer.innerHTML = allRanked.map((u, idx) => {
+                const isCurrentUser = u.name === activeUser;
+                const medalColors = ['text-amber-400', 'text-slate-300', 'text-amber-700'];
+                const rankDisplay = idx < 3 
+                    ? `<i class="fa-solid fa-medal ${medalColors[idx]} text-sm"></i>` 
+                    : `<span class="text-xs font-bold text-slate-500">#${idx + 1}</span>`;
+
+                return `
+                    <div class="flex items-center justify-between p-3 rounded-xl border ${isCurrentUser ? 'bg-indigo-600/10 border-indigo-500/40' : 'bg-slate-950/40 border-slate-800/60'} text-xs">
+                        <div class="flex items-center gap-3">
+                            <div class="w-6 text-center">${rankDisplay}</div>
+                            <span class="font-semibold ${isCurrentUser ? 'text-indigo-400 font-bold' : 'text-slate-200'}">${u.name} ${isCurrentUser ? '(Você)' : ''}</span>
+                        </div>
+                        <span class="font-bold text-white">${u.xp} XP</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function getFeedPosts() {
+            const posts = localStorage.getItem('olympius_feed_db');
+            return posts ? JSON.parse(posts) : [
+                {
+                    id: 1,
+                    author: 'Gabriel Astro',
+                    type: 'Dica de Estudo',
+                    content: 'Para a prova da OBA, revisem a Terceira Lei de Kepler e o cálculo de distância em Unidades Astronômicas!',
+                    time: 'Há 2 horas',
+                    likes: 5
+                },
+                {
+                    id: 2,
+                    author: 'Ana Clara (OBMEP)',
+                    type: 'Resolução OBA/OBMEP',
+                    content: 'Na 2ª fase da OBMEP, decompôr figuras geométricas complexas em triângulos menores ajuda a poupar tempo.',
+                    time: 'Há 5 horas',
+                    likes: 12
+                }
+            ];
+        }
+
+        function renderFeed() {
+            const posts = getFeedPosts();
+            feedPostsContainer.innerHTML = posts.map(post => `
+                <div class="p-4 bg-slate-950/80 border border-slate-800/80 rounded-xl space-y-2">
+                    <div class="flex justify-between items-center text-xs">
+                        <div class="flex items-center gap-2">
+                            <strong class="text-indigo-400">${post.author}</strong>
+                            <span class="text-[10px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded-full">${post.type}</span>
+                        </div>
+                        <span class="text-[10px] text-slate-500">${post.time}</span>
+                    </div>
+                    <p class="text-xs text-slate-300 leading-relaxed">${post.content}</p>
+                    <div class="flex justify-end items-center pt-1">
+                        <button onclick="likePost(${post.id})" class="text-xs text-slate-400 hover:text-rose-400 transition flex items-center gap-1.5">
+                            <i class="fa-regular fa-heart"></i> <span>${post.likes}</span>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        feedForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const activeUser = localStorage.getItem('logged_user');
+            const type = document.getElementById('post-type').value;
+            const content = document.getElementById('post-content').value.trim();
+
+            if (!content) return;
+
+            const posts = getFeedPosts();
+            posts.unshift({
+                id: Date.now(),
+                author: activeUser,
+                type: type,
+                content: content,
+                time: 'Agora mesmo',
+                likes: 0
+            });
+
+            localStorage.setItem('olympius_feed_db', JSON.stringify(posts));
+            feedForm.reset();
+            renderFeed();
+
+            let stats = getUserStats(activeUser);
+            if (!stats.badges.includes('feed_pioneer')) {
+                stats.badges.push('feed_pioneer');
+                saveUserStats(activeUser, stats);
+            }
+            addXP(30);
+        });
+
+        window.likePost = function(postId) {
+            const posts = getFeedPosts();
+            const post = posts.find(p => p.id === postId);
+            if (post) {
+                post.likes += 1;
+                localStorage.setItem('olympius_feed_db', JSON.stringify(posts));
+                renderFeed();
+            }
+        };
+
+        chatForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const query = chatInput.value.trim();
+            if (!query) return;
+
+            appendChatMessage('user', query);
+            chatInput.value = '';
+
+            setTimeout(() => {
+                const aiResponse = generateAIPedagogicalHint(query);
+                appendChatMessage('ai', aiResponse);
+
+                const activeUser = localStorage.getItem('logged_user');
+                let stats = getUserStats(activeUser);
+                if (!stats.badges.includes('ai_thinker')) {
+                    stats.badges.push('ai_thinker');
+                    saveUserStats(activeUser, stats);
+                }
+                addXP(20);
+            }, 800);
+        });
+
+        function appendChatMessage(sender, text) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = sender === 'user' ? 'flex justify-end' : 'flex items-start gap-2.5';
+
+            if (sender === 'user') {
+                msgDiv.innerHTML = `
+                    <div class="bg-indigo-600 text-white p-3 rounded-2xl rounded-tr-none max-w-[85%] text-xs leading-relaxed">
+                        ${text}
+                    </div>
+                `;
+            } else {
+                msgDiv.innerHTML = `
+                    <div class="w-7 h-7 rounded-lg bg-violet-600 flex items-center justify-center text-white text-xs shrink-0">
+                        <i class="fa-solid fa-robot"></i>
+                    </div>
+                    <div class="bg-slate-900 border border-slate-800 p-3 rounded-2xl rounded-tl-none text-slate-300 max-w-[85%] text-xs leading-relaxed">
+                        ${text}
+                    </div>
+                `;
+            }
+
+            chatBox.appendChild(msgDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function generateAIPedagogicalHint(input) {
+            const lower = input.toLowerCase();
+            if (lower.includes('oba') || lower.includes('astronomia') || lower.includes('órbita') || lower.includes('planeta')) {
+                return `<strong>Pista de Astronomia:</strong><br>
+                1. Lembre-se da 3ª Lei de Kepler ($T^2 = a^3$).<br>
+                2. Separe o período $T$ conhecido e identifique a distância orbital $a$.<br>
+                3. Relacione a velocidade angular com o período de rotação.`;
+            } else if (lower.includes('obmep') || lower.includes('matemática') || lower.includes('geometria') || lower.includes('equação')) {
+                return `<strong>Pista de Matemática:</strong><br>
+                1. Busque padrões de simetria ou equivalência de áreas em figuras geométricas.<br>
+                2. Decomponha a área sombreada usando polígonos simples.<br>
+                3. Tente atribuir um valor inicial fictício para entender a proporção.`;
+            } else {
+                return `<strong>Orientação OlymBot:</strong><br>
+                • Identifique os dados informados e a incógnita principal.<br>
+                • Qual teorema ou propriedade une esses dois fatores?<br>
+                • Tente resolver um caso simplificado primeiro.`;
+            }
+        }
+
+        function openAuthModal(tab = 'register') {
+            switchToTab(tab);
+            authModal.classList.remove('hidden');
         }
 
         function closeAuthModal() {
-            authModal.classList.remove('active');
-            regMsg.classList.add('hidden');
-            loginMsg.classList.add('hidden');
+            authModal.classList.add('hidden');
+            clearMessages();
         }
 
-        function switchAuthTab(mode) {
-            if (mode === 'register') {
-                tabRegister.classList.add('active');
-                tabLogin.classList.remove('active');
+        authModal.addEventListener('click', (e) => {
+            if (e.target === authModal) closeAuthModal();
+        });
+
+        function switchToTab(tab) {
+            clearMessages();
+            if (tab === 'register') {
+                tabRegister.className = "flex-1 pb-3 font-semibold text-center text-indigo-400 border-b-2 border-indigo-500 transition";
+                tabLogin.className = "flex-1 pb-3 font-semibold text-center text-slate-400 border-b-2 border-transparent transition";
                 registerForm.classList.remove('hidden');
                 loginForm.classList.add('hidden');
             } else {
-                tabLogin.classList.add('active');
-                tabRegister.classList.remove('active');
+                tabLogin.className = "flex-1 pb-3 font-semibold text-center text-indigo-400 border-b-2 border-indigo-500 transition";
+                tabRegister.className = "flex-1 pb-3 font-semibold text-center text-slate-400 border-b-2 border-transparent transition";
                 loginForm.classList.remove('hidden');
                 registerForm.classList.add('hidden');
             }
         }
 
-        // Processar Cadastro
+        tabRegister.addEventListener('click', () => switchToTab('register'));
+        tabLogin.addEventListener('click', () => switchToTab('login'));
+
+        function clearMessages() {
+            regMsg.classList.add('hidden');
+            loginMsg.classList.add('hidden');
+        }
+
+        function checkAuth() {
+            const activeUser = localStorage.getItem('logged_user');
+            const users = getUsers();
+            registeredUsersCount.textContent = users.length;
+
+            if (activeUser) {
+                userDisplayNav.textContent = activeUser;
+                publicView.classList.add('hidden');
+                portalView.classList.remove('hidden');
+                portalView.classList.add('flex');
+                navGuestActions.classList.add('hidden');
+                navUserActions.classList.remove('hidden');
+                navUserActions.classList.add('flex');
+                closeAuthModal();
+
+                renderFeed();
+                updateGamificationUI();
+            } else {
+                publicView.classList.remove('hidden');
+                portalView.classList.add('hidden');
+                portalView.classList.remove('flex');
+                navGuestActions.classList.remove('hidden');
+                navUserActions.classList.add('hidden');
+            }
+        }
+
         registerForm.addEventListener('submit', (e) => {
             e.preventDefault();
             const username = document.getElementById('reg-username').value.trim();
-            const email = document.getElementById('reg-email').value.trim().toLowerCase();
-            const password = document.getElementById('reg-password').value;
-            const confirmPassword = document.getElementById('reg-confirm-password').value;
+            const password = document.getElementById('reg-password').value.trim();
+            const confirmPassword = document.getElementById('reg-confirm-password').value.trim();
 
             if (password !== confirmPassword) {
-                showMsg(regMsg, 'As senhas não coincidem!', 'error');
+                showMsg(regMsg, 'As senhas não coincidem.', 'text-rose-500');
                 return;
             }
 
             const users = getUsers();
-            const userExists = users.some(u => u.email === email || u.username.toLowerCase() === username.toLowerCase());
-
-            if (userExists) {
-                showMsg(regMsg, 'E-mail ou nome de usuário já cadastrado!', 'error');
+            if (users.some(u => u.username.toLowerCase() === username.toLowerCase())) {
+                showMsg(regMsg, 'Usuário já cadastrado.', 'text-rose-500');
                 return;
             }
 
-            // Salva novo usuário
-            users.push({ username, email, password });
+            users.push({ username, password });
             saveUsers(users);
-
-            // Loga automaticamente
-            localStorage.setItem('logged_user', JSON.stringify({ username, email }));
-            showMsg(regMsg, 'Conta criada com sucesso! Redirecionando...', 'success');
+            showMsg(regMsg, 'Conta criada com sucesso! Entrando...', 'text-emerald-400');
 
             setTimeout(() => {
-                closeAuthModal();
+                localStorage.setItem('logged_user', username);
+                registerForm.reset();
+                clearMessages();
                 checkAuth();
-            }, 1200);
+            }, 1000);
         });
 
-        // Processar Login
         loginForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            const identifier = document.getElementById('login-email').value.trim().toLowerCase();
-            const password = document.getElementById('login-password').value;
+            const username = document.getElementById('login-username').value.trim();
+            const password = document.getElementById('login-password').value.trim();
 
             const users = getUsers();
-            const user = users.find(u => (u.email === identifier || u.username.toLowerCase() === identifier) && u.password === password);
+            const foundUser = users.find(u => u.username.toLowerCase() === username.toLowerCase() && u.password === password);
 
-            if (!user) {
-                showMsg(loginMsg, 'E-mail/usuário ou senha incorretos.', 'error');
-                return;
+            if (foundUser) {
+                localStorage.setItem('logged_user', foundUser.username);
+                loginForm.reset();
+                clearMessages();
+                checkAuth();
+            } else {
+                showMsg(loginMsg, 'Usuário ou senha incorretos.', 'text-rose-500');
             }
+        });
 
-            localStorage.setItem('logged_user', JSON.stringify({ username: user.username, email: user.email }));
-            closeAuthModal();
+        logoutBtn.addEventListener('click', () => {
+            localStorage.removeItem('logged_user');
             checkAuth();
         });
 
-        // Logout
-        function logout() {
-            localStorage.removeItem('logged_user');
-            checkAuth();
-        }
-
-        // Verificar Estado do Usuário
-        function checkAuth() {
-            const loggedUser = JSON.parse(localStorage.getItem('logged_user'));
-            if (loggedUser) {
-                navGuest.classList.add('hidden');
-                navUser.classList.remove('hidden');
-                userDisplay.textContent = `Olá, ${loggedUser.username}`;
-            } else {
-                navGuest.classList.remove('hidden');
-                navUser.classList.add('hidden');
-            }
-        }
-
-        function showMsg(element, text, type) {
+        function showMsg(element, text, colorClass) {
             element.textContent = text;
-            element.className = `form-msg ${type}`;
+            element.className = `text-xs text-center mt-2 ${colorClass}`;
             element.classList.remove('hidden');
         }
 
-        // Inicializar verificação
         checkAuth();
     </script>
 </body>
