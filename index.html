@@ -151,7 +151,7 @@
         <section class="relative pt-24 pb-20 overflow-hidden text-center max-w-7xl mx-auto px-6">
             <h1 class="text-5xl font-extrabold text-white">Domine as Olimpíadas Científicas com <span class="text-indigo-400">Olympius</span></h1>
             <p class="mt-4 text-slate-400">Estude com IA adaptativa, controle de tempo Pomodoro e ranking em tempo real.</p>
-            <button onclick="openAuthModal('register')" class="mt-8 bg-indigo-600 text-white px-8 py-3.5 rounded-xl font-semibold">Iniciar Sua Preparação</button>
+            <button onclick="openAuthModal('register')" class="mt-8 bg-indigo-600 text-white px-8 py-3.5 rounded-xl font-semibold hover:bg-indigo-500 transition">Iniciar Sua Preparação</button>
         </section>
     </div>
 
@@ -179,8 +179,8 @@
                         <span class="text-[10px] text-slate-400 font-bold uppercase block">Foco Pomodoro</span>
                         <span id="pomodoro-timer" class="text-2xl font-mono font-bold text-indigo-400">25:00</span>
                     </div>
-                    <button id="pomo-start-btn" onclick="togglePomodoro()" class="bg-indigo-600 text-white text-xs px-3 py-2 rounded-lg">Iniciar</button>
-                    <button onclick="resetPomodoro()" class="bg-slate-800 text-slate-300 text-xs px-3 py-2 rounded-lg"><i class="fa-solid fa-rotate-right"></i></button>
+                    <button id="pomo-start-btn" onclick="togglePomodoro()" class="bg-indigo-600 text-white text-xs px-3 py-2 rounded-lg hover:bg-indigo-500 transition">Iniciar</button>
+                    <button onclick="resetPomodoro()" class="bg-slate-800 text-slate-300 text-xs px-3 py-2 rounded-lg hover:bg-slate-700 transition"><i class="fa-solid fa-rotate-right"></i></button>
                 </div>
 
                 <!-- BARRA DE PROGRESSO XP CORRIGIDA -->
@@ -206,8 +206,8 @@
                         </div>
                     </div>
                     <form id="chat-form" onsubmit="handleChatSubmit(event)" class="mt-3 flex gap-2">
-                        <input type="text" id="chat-input" placeholder="Digite sua dúvida de exatas..." required class="flex-1 bg-slate-900 border border-slate-800 rounded-xl px-4 py-2 text-xs text-white focus:outline-none">
-                        <button type="submit" class="bg-violet-600 text-white px-4 py-2 rounded-xl text-xs">Enviar</button>
+                        <input type="text" id="chat-input" placeholder="Digite sua dúvida de exatas..." required class="flex-1 bg-slate-900 border border-slate-800 rounded-xl px-4 py-2 text-xs text-white focus:outline-none focus:border-indigo-500">
+                        <button type="submit" class="bg-violet-600 hover:bg-violet-500 text-white px-4 py-2 rounded-xl text-xs transition">Enviar</button>
                     </form>
                 </div>
             </div>
@@ -216,179 +216,270 @@
 
     <!-- SCRIPT DE LÓGICA COMPLETO -->
     <script>
-    // ESTADO GLOBAL DA APLICAÇÃO
-    let currentUser = { username: "Mister", xp: 0, level: 1, maxXp: 100 };
-    let pomodoroInterval = null;
-    let pomodoroSeconds = 25 * 60;
-    let isPomodoroRunning = false;
+        // BASE DE DADOS DOS MATERIAIS OLÍMPICOS
+        const materialsData = {
+            oba: {
+                title: "Materiais OBA (Astronomia e Astronáutica)",
+                icon: "fa-meteor",
+                color: "text-indigo-400",
+                items: [
+                    { title: "Apostila Completa - Leis de Kepler e Gravitação", type: "PDF", link: "#" },
+                    { title: "Simulado Nível 3 & 4 com Gabarito Comentado", type: "PDF", link: "#" },
+                    { title: "Banco de Questões: Fases da Lua e Eclipses", type: "DOCX", link: "#" }
+                ]
+            },
+            obmep: {
+                title: "Materiais OBMEP (Matemática)",
+                icon: "fa-calculator",
+                color: "text-violet-400",
+                items: [
+                    { title: "Apostila PIC - Análise Combinatória e Probabilidade", type: "PDF", link: "#" },
+                    { title: "Provas Anteriores Resolvidas (Fase 1 e 2)", type: "ZIP", link: "#" },
+                    { title: "Guia de Geometria Plana para Competições", type: "PDF", link: "#" }
+                ]
+            },
+            obr: {
+                title: "Materiais OBR (Robótica)",
+                icon: "fa-robot",
+                color: "text-emerald-400",
+                items: [
+                    { title: "Manual de Lógica e Algoritmos para Resgate", type: "PDF", link: "#" },
+                    { title: "Guia de Sensores e Calibragem (Luz/Ultra-som)", type: "PDF", link: "#" },
+                    { title: "Caderno de Questões Modalidade Teórica", type: "PDF", link: "#" }
+                ]
+            },
+            onee: {
+                title: "Materiais ONEE (Eficiência Energética)",
+                icon: "fa-bolt",
+                color: "text-amber-400",
+                items: [
+                    { title: "Guia de Consumo Consciente e Matriz Energética", type: "PDF", link: "#" },
+                    { title: "Simulado Oficial ONEE com Resoluções", type: "PDF", link: "#" },
+                    { title: "Fórmulas Essenciais: Potência, Trabalho e Energia", type: "PDF", link: "#" }
+                ]
+            }
+        };
 
-    // INICIALIZAÇÃO
-    document.addEventListener("DOMContentLoaded", () => {
-        updateXPUI();
-    });
+        // ESTADO GLOBAL DA APLICAÇÃO
+        let currentUser = { username: "Mister", xp: 0, level: 1 };
+        let pomodoroInterval = null;
+        let pomodoroSeconds = 25 * 60;
+        let isPomodoroRunning = false;
 
-    // LÓGICA DE PROGRESSO DE XP E NÍVEIS (CORRIGIDO)
-    function addXP(amount) {
-        currentUser.xp += amount;
-        
-        // Loop para lidar com múltiplos níveis de uma vez se o XP ganho for alto
-        while (currentUser.xp >= currentUser.maxXp) {
-            currentUser.xp -= currentUser.maxXp;
-            currentUser.level += 1;
+        // INICIALIZAÇÃO
+        document.addEventListener("DOMContentLoaded", () => {
+            updateXPUI();
+
+            // Fechar dropdowns e modais ao clicar fora
+            window.addEventListener("click", (e) => {
+                const dropdown = document.getElementById("dots-dropdown");
+                const btn = document.getElementById("dots-menu-btn");
+                if (dropdown && btn && !dropdown.contains(e.target) && !btn.contains(e.target)) {
+                    dropdown.classList.add("hidden");
+                }
+            });
+        });
+
+        // LÓGICA DAS MODAIS DE MATERIAIS (CORRIGIDO)
+        function openMaterialsModal(key) {
+            const data = materialsData[key];
+            if (!data) return;
+
+            document.getElementById("materials-title").innerText = data.title;
+            const iconContainer = document.getElementById("materials-icon");
+            iconContainer.innerHTML = `<i class="fa-solid ${data.icon} text-xl ${data.color}"></i>`;
+
+            const listContainer = document.getElementById("materials-list");
+            listContainer.innerHTML = data.items.map(item => `
+                <div class="flex items-center justify-between p-3.5 bg-slate-950 border border-slate-800 rounded-xl hover:border-slate-700 transition">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-regular fa-file-pdf text-slate-400 text-lg"></i>
+                        <div>
+                            <p class="text-xs font-semibold text-slate-200">${item.title}</p>
+                            <span class="text-[10px] text-slate-500 uppercase font-bold">${item.type}</span>
+                        </div>
+                    </div>
+                    <a href="${item.link}" onclick="addXP(10)" class="px-3 py-1.5 bg-indigo-600/20 hover:bg-indigo-600 text-indigo-300 hover:text-white rounded-lg text-xs font-medium transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-download text-[10px]"></i> Baixar
+                    </a>
+                </div>
+            `).join('');
+
+            document.getElementById("dots-dropdown").classList.add("hidden");
+            document.getElementById("materials-modal").classList.remove("hidden");
         }
-        
-        updateXPUI();
-    }
 
-    function updateXPUI() {
-        const progressBar = document.getElementById("xp-progress-bar");
-        const xpText = document.getElementById("xp-text-display");
-        const levelBadge = document.getElementById("user-badge-level");
-        const nextLevel = document.getElementById("next-level-num");
-
-        // Cálculo exato da porcentagem (0% a 100%)
-        const percentage = Math.min(Math.max((currentUser.xp / currentUser.maxXp) * 100, 0), 100);
-
-        if (progressBar) {
-            // Força a atualização da largura no elemento inline
-            progressBar.style.width = `${percentage}%`;
+        function closeMaterialsModal() {
+            document.getElementById("materials-modal").classList.add("hidden");
         }
-        
-        if (xpText) xpText.innerText = `${currentUser.xp} / ${currentUser.maxXp} XP`;
-        if (levelBadge) levelBadge.innerText = `Nível ${currentUser.level}`;
-        if (nextLevel) nextLevel.innerText = `Nível ${currentUser.level + 1}`;
-    }
 
-    // LÓGICA DO CHAT IA OLYMBOT
-    function handleChatSubmit(event) {
-        event.preventDefault();
-        const input = document.getElementById("chat-input");
-        const chatBox = document.getElementById("chat-box");
-        const text = input.value.trim();
+        // LÓGICA DE PROGRESSO DE XP E NÍVEIS
+        function addXP(amount) {
+            currentUser.xp += amount;
+            if (currentUser.xp >= 100) {
+                currentUser.level += Math.floor(currentUser.xp / 100);
+                currentUser.xp = currentUser.xp % 100;
+            }
+            updateXPUI();
+        }
 
-        if (!text) return;
+        function updateXPUI() {
+            const progressBar = document.getElementById("xp-progress-bar");
+            const xpText = document.getElementById("xp-text-display");
+            const levelBadge = document.getElementById("user-badge-level");
+            const nextLevel = document.getElementById("next-level-num");
 
-        // Renderizar Mensagem do Usuário
-        const userMsg = document.createElement("div");
-        userMsg.className = "bg-indigo-600/30 border border-indigo-500/30 p-3 rounded-xl text-slate-100 max-w-[85%] ml-auto text-right mb-2";
-        userMsg.innerText = text;
-        chatBox.appendChild(userMsg);
+            if (progressBar) progressBar.style.width = `${currentUser.xp}%`;
+            if (xpText) xpText.innerText = `${currentUser.xp} / 100 XP`;
+            if (levelBadge) levelBadge.innerText = `Nível ${currentUser.level}`;
+            if (nextLevel) nextLevel.innerText = `Nível ${currentUser.level + 1}`;
+        }
 
-        input.value = "";
-        chatBox.scrollTop = chatBox.scrollHeight;
+        // LÓGICA DO CHAT IA OLYMBOT
+        function handleChatSubmit(event) {
+            event.preventDefault();
+            const input = document.getElementById("chat-input");
+            const chatBox = document.getElementById("chat-box");
+            const text = input.value.trim();
 
-        // Resposta Simulada do Tutor Pedagógico
-        setTimeout(() => {
-            const botMsg = document.createElement("div");
-            botMsg.className = "bg-slate-900 border border-slate-800 p-3 rounded-xl text-slate-300 max-w-[85%] mb-2";
-            botMsg.innerText = generateTutorResponse(text);
-            chatBox.appendChild(botMsg);
+            if (!text) return;
+
+            // Renderizar Mensagem do Usuário
+            const userMsg = document.createElement("div");
+            userMsg.className = "bg-indigo-600/30 border border-indigo-500/30 p-3 rounded-xl text-slate-100 max-w-[85%] ml-auto text-right mb-2";
+            userMsg.innerText = text;
+            chatBox.appendChild(userMsg);
+
+            input.value = "";
             chatBox.scrollTop = chatBox.scrollHeight;
 
-            // Recompensa de +20 XP por interagir com o tutor
-            addXP(20);
-        }, 600);
-    }
+            // Resposta Simulada do Tutor Pedagógico
+            setTimeout(() => {
+                const botMsg = document.createElement("div");
+                botMsg.className = "bg-slate-900 border border-slate-800 p-3 rounded-xl text-slate-300 max-w-[85%] mb-2";
+                botMsg.innerText = generateTutorResponse(text);
+                chatBox.appendChild(botMsg);
+                chatBox.scrollTop = chatBox.scrollHeight;
 
-    function generateTutorResponse(query) {
-        const lower = query.toLowerCase();
-        if (lower.includes("kepler") || lower.includes("oba")) {
-            return "💡 Dica de Astronomia: Lembre-se da 3ª Lei de Kepler (T² ∝ a³). O quadrado do período orbital é proporcional ao cubo do semi-eixo maior!";
-        } else if (lower.includes("obmep") || lower.includes("contagem")) {
-            return "🧩 Dica de Matemática: Em problemas de contagem, tente quebrar o problema em casos menores ou utilizar o Princípio Multiplicativo.";
-        } else {
-            return "Excelente questão! Para resolver isso sem spoilers: identifique primeiro as variáveis principais e monte a equação fundamental do problema. Quer um passo a passo intermediário?";
+                // Recompensa de XP por utilizar o tutor
+                addXP(20);
+            }, 600);
         }
-    }
 
-    // LÓGICA DE GERENCIAMENTO DE MODAIS E MENUS
-    function toggleDotsMenu() {
-        document.getElementById("dots-dropdown").classList.toggle("hidden");
-    }
-
-    function openAuthModal(tab) {
-        document.getElementById("auth-modal").classList.remove("hidden");
-        switchAuthTab(tab);
-    }
-
-    function closeAuthModal() {
-        document.getElementById("auth-modal").classList.add("hidden");
-    }
-
-    function switchAuthTab(tab) {
-        const regForm = document.getElementById("register-form");
-        const loginForm = document.getElementById("login-form");
-        if (tab === 'register') {
-            regForm.classList.remove("hidden");
-            loginForm.classList.add("hidden");
-        } else {
-            regForm.classList.add("hidden");
-            loginForm.classList.remove("hidden");
+        function generateTutorResponse(query) {
+            const lower = query.toLowerCase();
+            if (lower.includes("kepler") || lower.includes("oba")) {
+                return "💡 Dica de Astronomia: Lembre-se da 3ª Lei de Kepler (T² ∝ a³). O quadrado do período orbital é proporcional ao cubo do semi-eixo maior!";
+            } else if (lower.includes("obmep") || lower.includes("contagem")) {
+                return "🧩 Dica de Matemática: Em problemas de contagem, tente quebrar o problema em casos menores ou utilizar o Princípio Multiplicativo.";
+            } else {
+                return `Excelente questão! Para resolver isso sem spoilers: identifique primeiro as variáveis principais e monte a equação fundamental do problema. Quer um passo a passo intermediário?`;
+            }
         }
-    }
 
-    function handleLogin(e) {
-        e.preventDefault();
-        closeAuthModal();
-        document.getElementById("public-view").classList.add("hidden");
-        document.getElementById("portal-view").classList.remove("hidden");
-        document.getElementById("nav-guest-actions").classList.add("hidden");
-        document.getElementById("nav-user-actions").classList.remove("hidden");
-        document.getElementById("nav-user-actions").classList.add("flex");
-        
-        // Atualiza a UI para garantir que os valores apareçam renderizados ao entrar
-        updateXPUI();
-    }
+        // LÓGICA DE GERENCIAMENTO DE MODAIS E MENUS
+        function toggleDotsMenu() {
+            document.getElementById("dots-dropdown").classList.toggle("hidden");
+        }
 
-    function handleRegister(e) {
-        e.preventDefault();
-        handleLogin(e);
-    }
+        function openAuthModal(tab) {
+            document.getElementById("auth-modal").classList.remove("hidden");
+            switchAuthTab(tab);
+        }
 
-    function logout() {
-        document.getElementById("public-view").classList.remove("hidden");
-        document.getElementById("portal-view").classList.add("hidden");
-        document.getElementById("nav-guest-actions").classList.remove("hidden");
-        document.getElementById("nav-user-actions").classList.add("hidden");
-    }
+        function closeAuthModal() {
+            document.getElementById("auth-modal").classList.add("hidden");
+        }
 
-    // CONTROLADOR POMODORO
-    function togglePomodoro() {
-        const btn = document.getElementById("pomo-start-btn");
-        if (isPomodoroRunning) {
+        function switchAuthTab(tab) {
+            const regForm = document.getElementById("register-form");
+            const loginForm = document.getElementById("login-form");
+            const tabRegBtn = document.getElementById("tab-register");
+            const tabLogBtn = document.getElementById("tab-login");
+
+            if (tab === 'register') {
+                regForm.classList.remove("hidden");
+                loginForm.classList.add("hidden");
+                tabRegBtn.className = "flex-1 pb-3 font-semibold text-center text-indigo-400 border-b-2 border-indigo-500 transition";
+                tabLogBtn.className = "flex-1 pb-3 font-semibold text-center text-slate-400 border-b-2 border-transparent transition";
+            } else {
+                regForm.classList.add("hidden");
+                loginForm.classList.remove("hidden");
+                tabLogBtn.className = "flex-1 pb-3 font-semibold text-center text-indigo-400 border-b-2 border-indigo-500 transition";
+                tabRegBtn.className = "flex-1 pb-3 font-semibold text-center text-slate-400 border-b-2 border-transparent transition";
+            }
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const usernameInput = document.getElementById("login-username").value.trim();
+            if (usernameInput) {
+                currentUser.username = usernameInput;
+                document.getElementById("user-display-nav").innerText = currentUser.username;
+            }
+            closeAuthModal();
+            document.getElementById("public-view").classList.add("hidden");
+            document.getElementById("portal-view").classList.remove("hidden");
+            document.getElementById("nav-guest-actions").classList.add("hidden");
+            document.getElementById("nav-user-actions").classList.remove("hidden");
+            document.getElementById("nav-user-actions").classList.add("flex");
+        }
+
+        function handleRegister(e) {
+            e.preventDefault();
+            const usernameInput = document.getElementById("reg-username").value.trim();
+            if (usernameInput) {
+                currentUser.username = usernameInput;
+                document.getElementById("user-display-nav").innerText = currentUser.username;
+            }
+            handleLogin(e);
+        }
+
+        function logout() {
+            document.getElementById("public-view").classList.remove("hidden");
+            document.getElementById("portal-view").classList.add("hidden");
+            document.getElementById("nav-guest-actions").classList.remove("hidden");
+            document.getElementById("nav-user-actions").classList.add("hidden");
+            document.getElementById("nav-user-actions").classList.remove("flex");
+        }
+
+        // CONTROLADOR POMODORO
+        function togglePomodoro() {
+            const btn = document.getElementById("pomo-start-btn");
+            if (isPomodoroRunning) {
+                clearInterval(pomodoroInterval);
+                isPomodoroRunning = false;
+                btn.innerText = "Iniciar";
+            } else {
+                isPomodoroRunning = true;
+                btn.innerText = "Pausar";
+                pomodoroInterval = setInterval(() => {
+                    if (pomodoroSeconds > 0) {
+                        pomodoroSeconds--;
+                        updatePomodoroDisplay();
+                    } else {
+                        clearInterval(pomodoroInterval);
+                        addXP(50); // Bônus por completar a sessão
+                        alert("Sessão Pomodoro concluída! +50 XP adicionados.");
+                        resetPomodoro();
+                    }
+                }, 1000);
+            }
+        }
+
+        function resetPomodoro() {
             clearInterval(pomodoroInterval);
             isPomodoroRunning = false;
-            btn.innerText = "Iniciar";
-        } else {
-            isPomodoroRunning = true;
-            btn.innerText = "Pausar";
-            pomodoroInterval = setInterval(() => {
-                if (pomodoroSeconds > 0) {
-                    pomodoroSeconds--;
-                    updatePomodoroDisplay();
-                } else {
-                    clearInterval(pomodoroInterval);
-                    addXP(50); // Bônus por completar a sessão (+50 XP)
-                    alert("Sessão Pomodoro concluída! +50 XP adicionados.");
-                    resetPomodoro();
-                }
-            }, 1000);
+            pomodoroSeconds = 25 * 60;
+            document.getElementById("pomo-start-btn").innerText = "Iniciar";
+            updatePomodoroDisplay();
         }
-    }
 
-    function resetPomodoro() {
-        clearInterval(pomodoroInterval);
-        isPomodoroRunning = false;
-        pomodoroSeconds = 25 * 60;
-        document.getElementById("pomo-start-btn").innerText = "Iniciar";
-        updatePomodoroDisplay();
-    }
-
-    function updatePomodoroDisplay() {
-        const min = Math.floor(pomodoroSeconds / 60).toString().padStart(2, '0');
-        const sec = (pomodoroSeconds % 60).toString().padStart(2, '0');
-        document.getElementById("pomodoro-timer").innerText = `${min}:${sec}`;
-    }
-</script>
+        function updatePomodoroDisplay() {
+            const min = Math.floor(pomodoroSeconds / 60).toString().padStart(2, '0');
+            const sec = (pomodoroSeconds % 60).toString().padStart(2, '0');
+            document.getElementById("pomodoro-timer").innerText = `${min}:${sec}`;
+        }
+    </script>
 </body>
 </html>
