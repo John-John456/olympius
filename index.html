@@ -1,485 +1,381 @@
 <!DOCTYPE html>
 <html lang="pt-BR" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Olympius | Plataforma de Estudos de Alta Performance</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome Ícones -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts: Plus Jakarta Sans -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; }
-        .glass-card {
-            background: rgba(15, 23, 42, 0.75);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Olympius | Plataforma de Estudos de Alta Performance</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .glass-card {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+    </style>
 </head>
 <body class="bg-slate-950 text-slate-100 antialiased selection:bg-indigo-500 selection:text-white min-h-screen flex flex-col justify-between">
 
-    <!-- HEADER / NAVBAR -->
-    <header class="sticky top-0 z-40 bg-slate-950/80 backdrop-blur-xl border-b border-slate-800/80">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-                <div class="bg-gradient-to-tr from-indigo-600 via-violet-600 to-cyan-400 p-2.5 rounded-xl text-white shadow-lg shadow-indigo-500/20">
-                    <i class="fa-solid fa-graduation-cap text-xl"></i>
-                </div>
-                <div class="flex flex-col">
-                    <span class="text-2xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-200 to-indigo-300 bg-clip-text text-transparent">Olympius</span>
-                    <span class="text-[10px] text-indigo-400 font-semibold tracking-widest uppercase -mt-1">Study Lab</span>
-                </div>
-            </div>
-            
-            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
-                <a href="#solucao" class="hover:text-indigo-400 transition flex items-center gap-2"><i class="fa-solid fa-layer-group text-xs"></i> Plataforma</a>
-                <a href="#recursos" class="hover:text-indigo-400 transition flex items-center gap-2"><i class="fa-solid fa-bolt text-xs"></i> Recursos</a>
-                
-                <!-- MENU 3 PONTINHOS -->
-                <div class="relative">
-                    <button id="dots-menu-btn" onclick="toggleDotsMenu()" class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-indigo-500/50 hover:text-indigo-400 text-slate-300 transition flex items-center justify-center">
-                        <i class="fa-solid fa-ellipsis-vertical text-base"></i>
-                    </button>
+    <!-- HEADER / NAVBAR -->
+    <header class="sticky top-0 z-40 bg-slate-950/80 backdrop-blur-xl border-b border-slate-800/80">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="bg-gradient-to-tr from-indigo-600 via-violet-600 to-cyan-400 p-2.5 rounded-xl text-white shadow-lg shadow-indigo-500/20">
+                    <i class="fa-solid fa-graduation-cap text-xl"></i>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-2xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-200 to-indigo-300 bg-clip-text text-transparent">Olympius</span>
+                    <span class="text-[10px] text-indigo-400 font-semibold tracking-widest uppercase -mt-1">Study Lab</span>
+                </div>
+            </div>
+            
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
+                <a href="#solucao" class="hover:text-indigo-400 transition flex items-center gap-2"><i class="fa-solid fa-layer-group text-xs"></i> Plataforma</a>
+                <a href="#recursos" class="hover:text-indigo-400 transition flex items-center gap-2"><i class="fa-solid fa-bolt text-xs"></i> Recursos</a>
+                
+                <!-- MENU 3 PONTINHOS -->
+                <div class="relative">
+                    <button id="dots-menu-btn" onclick="toggleDotsMenu()" class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-indigo-500/50 hover:text-indigo-400 text-slate-300 transition flex items-center justify-center">
+                        <i class="fa-solid fa-ellipsis-vertical text-base"></i>
+                    </button>
 
-                    <!-- Dropdown dos 3 pontinhos -->
-                    <div id="dots-dropdown" class="hidden absolute right-0 mt-2 w-64 bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl p-2 z-50">
-                        <div class="px-3 py-2 border-b border-slate-800/80 mb-1">
-                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Materiais Olímpicos</span>
-                        </div>
-                        <button onclick="openMaterialsModal('oba')" class="w-full text-left px-3 py-2.5 text-xs font-medium text-slate-200 hover:bg-indigo-600/20 hover:text-indigo-300 rounded-xl transition flex items-center gap-2.5">
-                            <i class="fa-solid fa-meteor text-indigo-400"></i>
-                            <span>Materiais OBA (Astronomia)</span>
-                        </button>
-                        <button onclick="openMaterialsModal('obmep')" class="w-full text-left px-3 py-2.5 text-xs font-medium text-slate-200 hover:bg-violet-600/20 hover:text-violet-300 rounded-xl transition flex items-center gap-2.5">
-                            <i class="fa-solid fa-calculator text-violet-400"></i>
-                            <span>Materiais OBMEP (Matemática)</span>
-                        </button>
-                        <button onclick="openMaterialsModal('obr')" class="w-full text-left px-3 py-2.5 text-xs font-medium text-slate-200 hover:bg-emerald-600/20 hover:text-emerald-300 rounded-xl transition flex items-center gap-2.5">
-                            <i class="fa-solid fa-robot text-emerald-400"></i>
-                            <span>Materiais OBR (Robótica)</span>
-                        </button>
-                        <button onclick="openMaterialsModal('onee')" class="w-full text-left px-3 py-2.5 text-xs font-medium text-slate-200 hover:bg-amber-600/20 hover:text-amber-300 rounded-xl transition flex items-center gap-2.5">
-                            <i class="fa-solid fa-bolt text-amber-400"></i>
-                            <span>Materiais ONEE (Eficiência)</span>
-                        </button>
-                    </div>
-                </div>
-            </nav>
+                    <!-- Dropdown dos 3 pontinhos -->
+                    <div id="dots-dropdown" class="hidden absolute right-0 mt-2 w-64 bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl p-2 z-50">
+                        <div class="px-3 py-2 border-b border-slate-800/80 mb-1">
+                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Materiais Olímpicos</span>
+                        </div>
+                        <button onclick="openMaterialsModal('oba')" class="w-full text-left px-3 py-2.5 text-xs font-medium text-slate-200 hover:bg-indigo-600/20 hover:text-indigo-300 rounded-xl transition flex items-center gap-2.5">
+                            <i class="fa-solid fa-meteor text-indigo-400"></i>
+                            <span>Materiais OBA (Astronomia)</span>
+                        </button>
+                        <button onclick="openMaterialsModal('obmep')" class="w-full text-left px-3 py-2.5 text-xs font-medium text-slate-200 hover:bg-violet-600/20 hover:text-violet-300 rounded-xl transition flex items-center gap-2.5">
+                            <i class="fa-solid fa-calculator text-violet-400"></i>
+                            <span>Materiais OBMEP (Matemática)</span>
+                        </button>
+                        <button onclick="openMaterialsModal('obr')" class="w-full text-left px-3 py-2.5 text-xs font-medium text-slate-200 hover:bg-emerald-600/20 hover:text-emerald-300 rounded-xl transition flex items-center gap-2.5">
+                            <i class="fa-solid fa-robot text-emerald-400"></i>
+                            <span>Materiais OBR (Robótica)</span>
+                        </button>
+                        <button onclick="openMaterialsModal('onee')" class="w-full text-left px-3 py-2.5 text-xs font-medium text-slate-200 hover:bg-amber-600/20 hover:text-amber-300 rounded-xl transition flex items-center gap-2.5">
+                            <i class="fa-solid fa-bolt text-amber-400"></i>
+                            <span>Materiais ONEE (Eficiência)</span>
+                        </button>
+                    </div>
+                </div>
+            </nav>
 
-            <div class="flex items-center space-x-4">
-                <!-- Estado Deslogado -->
-                <div id="nav-guest-actions" class="flex items-center space-x-4">
-                    <button onclick="openAuthModal('login')" class="text-sm font-semibold text-slate-300 hover:text-white transition px-3 py-2">Entrar</button>
-                    <button onclick="openAuthModal('register')" class="bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold px-5 py-2.5 rounded-xl shadow-lg shadow-indigo-600/30 transition">Cadastre-se</button>
-                </div>
-                <!-- Estado Logado -->
-                <div id="nav-user-actions" class="hidden items-center space-x-4">
-                    <div class="flex items-center gap-2 bg-amber-500/10 border border-amber-500/20 px-3 py-1.5 rounded-xl text-amber-400 text-xs font-semibold">
-                        <i class="fa-solid fa-fire text-amber-500 animate-pulse"></i>
-                        <span>3 dias de ofensiva</span>
-                    </div>
-                    <span class="text-sm text-slate-300">Olá, <strong id="user-display-nav" class="text-indigo-400">Mister</strong></span>
-                    <button id="logout-btn" onclick="logout()" class="bg-slate-900 hover:bg-slate-800 text-slate-300 text-xs font-semibold px-3.5 py-2 rounded-xl border border-slate-800 transition">Sair</button>
-                </div>
-            </div>
-        </div>
-    </header>
+            <div class="flex items-center space-x-4">
+                <!-- Estado Deslogado -->
+                <div id="nav-guest-actions" class="flex items-center space-x-4">
+                    <button onclick="openAuthModal('login')" class="text-sm font-semibold text-slate-300 hover:text-white transition px-3 py-2">Entrar</button>
+                    <button onclick="openAuthModal('register')" class="bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold px-5 py-2.5 rounded-xl shadow-lg shadow-indigo-600/30 transition">Cadastre-se</button>
+                </div>
+                <!-- Estado Logado -->
+                <div id="nav-user-actions" class="hidden items-center space-x-4">
+                    <div class="flex items-center gap-2 bg-amber-500/10 border border-amber-500/20 px-3 py-1.5 rounded-xl text-amber-400 text-xs font-semibold">
+                        <i class="fa-solid fa-fire text-amber-500 animate-pulse"></i>
+                        <span>3 dias de ofensiva</span>
+                    </div>
+                    <span class="text-sm text-slate-300">Olá, <strong id="user-display-nav" class="text-indigo-400">Mister</strong></span>
+                    <button id="logout-btn" onclick="logout()" class="bg-slate-900 hover:bg-slate-800 text-slate-300 text-xs font-semibold px-3.5 py-2 rounded-xl border border-slate-800 transition">Sair</button>
+                </div>
+            </div>
+        </div>
+    </header>
 
-    <!-- MODAL DE MATERIAIS -->
-    <div id="materials-modal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
-        <div class="relative w-full max-w-2xl bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-2xl">
-            <button onclick="closeMaterialsModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-lg transition">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-            <div class="flex items-center gap-3 border-b border-slate-800 pb-4 mb-6">
-                <div id="materials-icon" class="p-3 rounded-xl bg-indigo-600/20 text-indigo-400 border border-indigo-500/30">
-                    <i class="fa-solid fa-folder-open text-xl"></i>
-                </div>
-                <div>
-                    <h3 id="materials-title" class="text-xl font-bold text-white">Central de Materiais</h3>
-                    <p class="text-xs text-slate-400">Apostilas, gabaritos e bancos de questões para download.</p>
-                </div>
-            </div>
-            <div id="materials-list" class="space-y-3 max-h-[380px] overflow-y-auto pr-2"></div>
-        </div>
-    </div>
+    <!-- MODAL DE MATERIAIS -->
+    <div id="materials-modal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="relative w-full max-w-2xl bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-2xl">
+            <button onclick="closeMaterialsModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-lg transition">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="flex items-center gap-3 border-b border-slate-800 pb-4 mb-6">
+                <div id="materials-icon" class="p-3 rounded-xl bg-indigo-600/20 text-indigo-400 border border-indigo-500/30">
+                    <i class="fa-solid fa-folder-open text-xl"></i>
+                </div>
+                <div>
+                    <h3 id="materials-title" class="text-xl font-bold text-white">Central de Materiais</h3>
+                    <p class="text-xs text-slate-400">Apostilas, gabaritos e bancos de questões para download.</p>
+                </div>
+            </div>
+            <div id="materials-list" class="space-y-3 max-h-[380px] overflow-y-auto pr-2"></div>
+        </div>
+    </div>
 
-    <!-- MODAL POPUP DE AUTENTICAÇÃO -->
-    <div id="auth-modal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
-        <div class="relative w-full max-w-md bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-2xl">
-            <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-lg transition">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-            <div class="flex border-b border-slate-800 mb-6">
-                <button id="tab-register" onclick="switchAuthTab('register')" class="flex-1 pb-3 font-semibold text-center text-indigo-400 border-b-2 border-indigo-500 transition">Cadastrar-se</button>
-                <button id="tab-login" onclick="switchAuthTab('login')" class="flex-1 pb-3 font-semibold text-center text-slate-400 border-b-2 border-transparent transition">Entrar</button>
-            </div>
-            <form id="register-form" onsubmit="handleRegister(event)" class="space-y-4">
-                <div>
-                    <label class="block text-xs font-medium text-slate-400 mb-1">Novo Usuário</label>
-                    <input type="text" id="reg-username" placeholder="Crie seu nome de usuário" required class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 text-sm">
-                </div>
-                <div>
-                    <label class="block text-xs font-medium text-slate-400 mb-1">Senha</label>
-                    <input type="password" id="reg-password" placeholder="Crie uma senha segura" required class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 text-sm">
-                </div>
-                <button type="submit" class="w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-xl shadow-lg shadow-indigo-600/30 transition text-sm">
-                    Cadastrar e Salvar Conta
-                </button>
-            </form>
-            <form id="login-form" onsubmit="handleLogin(event)" class="space-y-4 hidden">
-                <div>
-                    <label class="block text-xs font-medium text-slate-400 mb-1">Usuário</label>
-                    <input type="text" id="login-username" placeholder="Digite seu usuário" required class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 text-sm">
-                </div>
-                <div>
-                    <label class="block text-xs font-medium text-slate-400 mb-1">Senha</label>
-                    <input type="password" id="login-password" placeholder="Digite sua senha" required class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 text-sm">
-                </div>
-                <button type="submit" class="w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-xl shadow-lg shadow-indigo-600/30 transition text-sm">
-                    Entrar na Conta
-                </button>
-            </form>
-        </div>
-    </div>
+    <!-- MODAL POPUP DE AUTENTICAÇÃO -->
+    <div id="auth-modal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="relative w-full max-w-md bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-2xl">
+            <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-lg transition">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="flex border-b border-slate-800 mb-6">
+                <button id="tab-register" onclick="switchAuthTab('register')" class="flex-1 pb-3 font-semibold text-center text-indigo-400 border-b-2 border-indigo-500 transition">Cadastrar-se</button>
+                <button id="tab-login" onclick="switchAuthTab('login')" class="flex-1 pb-3 font-semibold text-center text-slate-400 border-b-2 border-transparent transition">Entrar</button>
+            </div>
+            <form id="register-form" onsubmit="handleRegister(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-medium text-slate-400 mb-1">Novo Usuário</label>
+                    <input type="text" id="reg-username" placeholder="Crie seu nome de usuário" required class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-slate-400 mb-1">Senha</label>
+                    <input type="password" id="reg-password" placeholder="Crie uma senha segura" required class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 text-sm">
+                </div>
+                <button type="submit" class="w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-xl shadow-lg shadow-indigo-600/30 transition text-sm">
+                    Cadastrar e Salvar Conta
+                </button>
+            </form>
+            <form id="login-form" onsubmit="handleLogin(event)" class="space-y-4 hidden">
+                <div>
+                    <label class="block text-xs font-medium text-slate-400 mb-1">Usuário</label>
+                    <input type="text" id="login-username" placeholder="Digite seu usuário" required class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-slate-400 mb-1">Senha</label>
+                    <input type="password" id="login-password" placeholder="Digite sua senha" required class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 text-sm">
+                </div>
+                <button type="submit" class="w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-xl shadow-lg shadow-indigo-600/30 transition text-sm">
+                    Entrar na Conta
+                </button>
+            </form>
+        </div>
+    </div>
 
-    <!-- VISÃO PÚBLICA -->
-    <div id="public-view">
-        <section class="relative pt-24 pb-20 overflow-hidden text-center max-w-7xl mx-auto px-6">
-            <h1 class="text-5xl font-extrabold text-white">Domine as Olimpíadas Científicas com <span class="text-indigo-400">Olympius</span></h1>
-            <p class="mt-4 text-slate-400">Estude com IA adaptativa, controle de tempo Pomodoro e ranking em tempo real.</p>
-            <button onclick="openAuthModal('register')" class="mt-8 bg-indigo-600 text-white px-8 py-3.5 rounded-xl font-semibold hover:bg-indigo-500 transition">Iniciar Sua Preparação</button>
-        </section>
-    </div>
+    <!-- VISÃO PÚBLICA -->
+    <div id="public-view">
+        <section class="relative pt-24 pb-20 overflow-hidden text-center max-w-7xl mx-auto px-6">
+            <h1 class="text-5xl font-extrabold text-white">Domine as Olimpíadas Científicas com <span class="text-indigo-400">Olympius</span></h1>
+            <p class="mt-4 text-slate-400">Estude com IA adaptativa, controle de tempo Pomodoro e ranking em tempo real.</p>
+            <button onclick="openAuthModal('register')" class="mt-8 bg-indigo-600 text-white px-8 py-3.5 rounded-xl font-semibold">Iniciar Sua Preparação</button>
+        </section>
+    </div>
 
-    <!-- PAINEL PRIVADO -->
-    <div id="portal-view" class="hidden flex-1 flex flex-col md:flex-row">
-        <aside class="w-full md:w-64 bg-slate-900 border-r border-slate-800 p-4">
-            <nav class="space-y-2">
-                <button onclick="switchTab('dashboard')" class="w-full text-left px-3.5 py-3 rounded-xl text-xs font-semibold bg-indigo-600 text-white">Visão Geral</button>
-            </nav>
-        </aside>
+    <!-- PAINEL PRIVADO -->
+    <div id="portal-view" class="hidden flex-1 flex flex-col md:flex-row">
+        <aside class="w-full md:w-64 bg-slate-900 border-r border-slate-800 p-4">
+            <nav class="space-y-2">
+                <button onclick="switchTab('dashboard')" class="w-full text-left px-3.5 py-3 rounded-xl text-xs font-semibold bg-indigo-600 text-white">Visão Geral</button>
+            </nav>
+        </aside>
 
-        <main class="flex-1 p-6 max-w-7xl mx-auto w-full space-y-8">
-            <!-- BANNER PRINCIPAL COM PROGRESSO DE XP E POMODORO -->
-            <div class="glass-card p-6 rounded-2xl flex flex-col lg:flex-row justify-between items-center gap-6">
-                <div>
-                    <h2 class="text-2xl font-bold text-white flex items-center gap-3">
-                        <span>Central de Estudos</span>
-                        <span id="user-badge-level" class="text-xs px-3 py-1 bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 rounded-full">Nível 1</span>
-                    </h2>
-                </div>
+        <main class="flex-1 p-6 max-w-7xl mx-auto w-full space-y-8">
+            <!-- BANNER PRINCIPAL COM PROGRESSO DE XP E POMODORO -->
+            <div class="glass-card p-6 rounded-2xl flex flex-col lg:flex-row justify-between items-center gap-6">
+                <div>
+                    <h2 class="text-2xl font-bold text-white flex items-center gap-3">
+                        <span>Central de Estudos</span>
+                        <span id="user-badge-level" class="text-xs px-3 py-1 bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 rounded-full">Nível 1</span>
+                    </h2>
+                </div>
 
-                <!-- CRONÔMETRO POMODORO -->
-                <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl flex items-center gap-6">
-                    <div class="text-center">
-                        <span class="text-[10px] text-slate-400 font-bold uppercase block">Foco Pomodoro</span>
-                        <span id="pomodoro-timer" class="text-2xl font-mono font-bold text-indigo-400">25:00</span>
-                    </div>
-                    <button id="pomo-start-btn" onclick="togglePomodoro()" class="bg-indigo-600 text-white text-xs px-3 py-2 rounded-lg hover:bg-indigo-500 transition">Iniciar</button>
-                    <button onclick="resetPomodoro()" class="bg-slate-800 text-slate-300 text-xs px-3 py-2 rounded-lg hover:bg-slate-700 transition"><i class="fa-solid fa-rotate-right"></i></button>
-                </div>
+                <!-- CRONÔMETRO POMODORO -->
+                <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl flex items-center gap-6">
+                    <div class="text-center">
+                        <span class="text-[10px] text-slate-400 font-bold uppercase block">Foco Pomodoro</span>
+                        <span id="pomodoro-timer" class="text-2xl font-mono font-bold text-indigo-400">25:00</span>
+                    </div>
+                    <button id="pomo-start-btn" onclick="togglePomodoro()" class="bg-indigo-600 text-white text-xs px-3 py-2 rounded-lg">Iniciar</button>
+                    <button onclick="resetPomodoro()" class="bg-slate-800 text-slate-300 text-xs px-3 py-2 rounded-lg"><i class="fa-solid fa-rotate-right"></i></button>
+                </div>
 
-                <!-- BARRA DE PROGRESSO XP CORRIGIDA -->
-                <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl w-full lg:w-72">
-                    <div class="flex justify-between items-center text-xs text-slate-300 font-semibold mb-2">
-                        <span>Progresso Diário</span>
-                        <span id="xp-text-display" class="text-indigo-400">0 / 100 XP</span>
-                    </div>
-                    <div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
-                        <div id="xp-progress-bar" class="bg-indigo-500 h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
-                    </div>
-                    <p class="text-[11px] text-slate-500 mt-2 text-right">Próximo Nível: <span id="next-level-num">Nível 2</span></p>
-                </div>
-            </div>
+                <!-- BARRA DE PROGRESSO XP CORRIGIDA -->
+                <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl w-full lg:w-72">
+                    <div class="flex justify-between items-center text-xs text-slate-300 font-semibold mb-2">
+                        <span>Progresso Diário</span>
+                        <span id="xp-text-display" class="text-indigo-400">0 / 100 XP</span>
+                    </div>
+                    <div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
+                        <div id="xp-progress-bar" class="bg-indigo-500 h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
+                    </div>
+                    <p class="text-[11px] text-slate-500 mt-2 text-right">Próximo Nível: <span id="next-level-num">Nível 2</span></p>
+                </div>
+            </div>
 
-            <!-- CHAT IA (OLYMBOT) -->
-            <div class="glass-card rounded-2xl p-6">
-                <h3 class="text-lg font-bold text-white mb-4">Tutor Pedagógico (OlymBot)</h3>
-                <div class="flex flex-col h-[300px] bg-slate-950 border border-slate-800 rounded-xl p-4">
-                    <div id="chat-box" class="flex-1 overflow-y-auto space-y-3 text-xs">
-                        <div class="bg-slate-900 p-3 rounded-xl text-slate-300 max-w-[85%]">
-                            Olá! Sou o OlymBot. Como posso ajudar em seus estudos hoje?
-                        </div>
-                    </div>
-                    <form id="chat-form" onsubmit="handleChatSubmit(event)" class="mt-3 flex gap-2">
-                        <input type="text" id="chat-input" placeholder="Digite sua dúvida de exatas..." required class="flex-1 bg-slate-900 border border-slate-800 rounded-xl px-4 py-2 text-xs text-white focus:outline-none focus:border-indigo-500">
-                        <button type="submit" class="bg-violet-600 hover:bg-violet-500 text-white px-4 py-2 rounded-xl text-xs transition">Enviar</button>
-                    </form>
-                </div>
-            </div>
-        </main>
-    </div>
+            <!-- CHAT IA (OLYMBOT) -->
+            <div class="glass-card rounded-2xl p-6">
+                <h3 class="text-lg font-bold text-white mb-4">Tutor Pedagógico (OlymBot)</h3>
+                <div class="flex flex-col h-[300px] bg-slate-950 border border-slate-800 rounded-xl p-4">
+                    <div id="chat-box" class="flex-1 overflow-y-auto space-y-3 text-xs">
+                        <div class="bg-slate-900 p-3 rounded-xl text-slate-300 max-w-[85%]">
+                            Olá! Sou o OlymBot. Como posso ajudar em seus estudos hoje?
+                        </div>
+                    </div>
+                    <form id="chat-form" onsubmit="handleChatSubmit(event)" class="mt-3 flex gap-2">
+                        <input type="text" id="chat-input" placeholder="Digite sua dúvida de exatas..." required class="flex-1 bg-slate-900 border border-slate-800 rounded-xl px-4 py-2 text-xs text-white focus:outline-none">
+                        <button type="submit" class="bg-violet-600 text-white px-4 py-2 rounded-xl text-xs">Enviar</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
 
-    <!-- SCRIPT DE LÓGICA COMPLETO -->
-    <script>
-        // BASE DE DADOS DOS MATERIAIS OLÍMPICOS
-        const materialsData = {
-            oba: {
-                title: "Materiais OBA (Astronomia e Astronáutica)",
-                icon: "fa-meteor",
-                color: "text-indigo-400",
-                items: [
-                    { title: "Apostila Completa - Leis de Kepler e Gravitação", type: "PDF", link: "#" },
-                    { title: "Simulado Nível 3 & 4 com Gabarito Comentado", type: "PDF", link: "#" },
-                    { title: "Banco de Questões: Fases da Lua e Eclipses", type: "DOCX", link: "#" }
-                ]
-            },
-            obmep: {
-                title: "Materiais OBMEP (Matemática)",
-                icon: "fa-calculator",
-                color: "text-violet-400",
-                items: [
-                    { title: "Apostila PIC - Análise Combinatória e Probabilidade", type: "PDF", link: "#" },
-                    { title: "Provas Anteriores Resolvidas (Fase 1 e 2)", type: "ZIP", link: "#" },
-                    { title: "Guia de Geometria Plana para Competições", type: "PDF", link: "#" }
-                ]
-            },
-            obr: {
-                title: "Materiais OBR (Robótica)",
-                icon: "fa-robot",
-                color: "text-emerald-400",
-                items: [
-                    { title: "Manual de Lógica e Algoritmos para Resgate", type: "PDF", link: "#" },
-                    { title: "Guia de Sensores e Calibragem (Luz/Ultra-som)", type: "PDF", link: "#" },
-                    { title: "Caderno de Questões Modalidade Teórica", type: "PDF", link: "#" }
-                ]
-            },
-            onee: {
-                title: "Materiais ONEE (Eficiência Energética)",
-                icon: "fa-bolt",
-                color: "text-amber-400",
-                items: [
-                    { title: "Guia de Consumo Consciente e Matriz Energética", type: "PDF", link: "#" },
-                    { title: "Simulado Oficial ONEE com Resoluções", type: "PDF", link: "#" },
-                    { title: "Fórmulas Essenciais: Potência, Trabalho e Energia", type: "PDF", link: "#" }
-                ]
-            }
-        };
+    <!-- SCRIPT DE LÓGICA COMPLETO -->
+    <script>
+        // ESTADO GLOBAL DA APLICAÇÃO
+        let currentUser = { username: "Mister", xp: 0, level: 1 };
+        let pomodoroInterval = null;
+        let pomodoroSeconds = 25 * 60;
+        let isPomodoroRunning = false;
 
-        // ESTADO GLOBAL DA APLICAÇÃO
-        let currentUser = { username: "Mister", xp: 0, level: 1 };
-        let pomodoroInterval = null;
-        let pomodoroSeconds = 25 * 60;
-        let isPomodoroRunning = false;
+        // INICIALIZAÇÃO
+        document.addEventListener("DOMContentLoaded", () => {
+            updateXPUI();
+        });
 
-        // INICIALIZAÇÃO
-        document.addEventListener("DOMContentLoaded", () => {
-            updateXPUI();
+        // LÓGICA DE PROGRESSO DE XP E NÍVEIS (CORRIGIDO)
+        function addXP(amount) {
+            currentUser.xp += amount;
+            if (currentUser.xp >= 100) {
+                currentUser.level += Math.floor(currentUser.xp / 100);
+                currentUser.xp = currentUser.xp % 100;
+            }
+            updateXPUI();
+        }
 
-            // Fechar dropdowns e modais ao clicar fora
-            window.addEventListener("click", (e) => {
-                const dropdown = document.getElementById("dots-dropdown");
-                const btn = document.getElementById("dots-menu-btn");
-                if (dropdown && btn && !dropdown.contains(e.target) && !btn.contains(e.target)) {
-                    dropdown.classList.add("hidden");
-                }
-            });
-        });
+        function updateXPUI() {
+            const progressBar = document.getElementById("xp-progress-bar");
+            const xpText = document.getElementById("xp-text-display");
+            const levelBadge = document.getElementById("user-badge-level");
+            const nextLevel = document.getElementById("next-level-num");
 
-        // LÓGICA DAS MODAIS DE MATERIAIS (CORRIGIDO)
-        function openMaterialsModal(key) {
-            const data = materialsData[key];
-            if (!data) return;
+            if (progressBar) progressBar.style.width = `${currentUser.xp}%`;
+            if (xpText) xpText.innerText = `${currentUser.xp} / 100 XP`;
+            if (levelBadge) levelBadge.innerText = `Nível ${currentUser.level}`;
+            if (nextLevel) nextLevel.innerText = `Nível ${currentUser.level + 1}`;
+        }
 
-            document.getElementById("materials-title").innerText = data.title;
-            const iconContainer = document.getElementById("materials-icon");
-            iconContainer.innerHTML = `<i class="fa-solid ${data.icon} text-xl ${data.color}"></i>`;
+        // LÓGICA DO CHAT IA OLYMBOT (CORRIGIDO)
+        function handleChatSubmit(event) {
+            event.preventDefault();
+            const input = document.getElementById("chat-input");
+            const chatBox = document.getElementById("chat-box");
+            const text = input.value.trim();
 
-            const listContainer = document.getElementById("materials-list");
-            listContainer.innerHTML = data.items.map(item => `
-                <div class="flex items-center justify-between p-3.5 bg-slate-950 border border-slate-800 rounded-xl hover:border-slate-700 transition">
-                    <div class="flex items-center gap-3">
-                        <i class="fa-regular fa-file-pdf text-slate-400 text-lg"></i>
-                        <div>
-                            <p class="text-xs font-semibold text-slate-200">${item.title}</p>
-                            <span class="text-[10px] text-slate-500 uppercase font-bold">${item.type}</span>
-                        </div>
-                    </div>
-                    <a href="${item.link}" onclick="addXP(10)" class="px-3 py-1.5 bg-indigo-600/20 hover:bg-indigo-600 text-indigo-300 hover:text-white rounded-lg text-xs font-medium transition flex items-center gap-1.5">
-                        <i class="fa-solid fa-download text-[10px]"></i> Baixar
-                    </a>
-                </div>
-            `).join('');
+            if (!text) return;
 
-            document.getElementById("dots-dropdown").classList.add("hidden");
-            document.getElementById("materials-modal").classList.remove("hidden");
-        }
+            // Renderizar Mensagem do Usuário
+            const userMsg = document.createElement("div");
+            userMsg.className = "bg-indigo-600/30 border border-indigo-500/30 p-3 rounded-xl text-slate-100 max-w-[85%] ml-auto text-right mb-2";
+            userMsg.innerText = text;
+            chatBox.appendChild(userMsg);
 
-        function closeMaterialsModal() {
-            document.getElementById("materials-modal").classList.add("hidden");
-        }
+            input.value = "";
+            chatBox.scrollTop = chatBox.scrollHeight;
 
-        // LÓGICA DE PROGRESSO DE XP E NÍVEIS
-        function addXP(amount) {
-            currentUser.xp += amount;
-            if (currentUser.xp >= 100) {
-                currentUser.level += Math.floor(currentUser.xp / 100);
-                currentUser.xp = currentUser.xp % 100;
-            }
-            updateXPUI();
-        }
+            // Resposta Simulada do Tutor Pedagógico
+            setTimeout(() => {
+                const botMsg = document.createElement("div");
+                botMsg.className = "bg-slate-900 border border-slate-800 p-3 rounded-xl text-slate-300 max-w-[85%] mb-2";
+                botMsg.innerText = generateTutorResponse(text);
+                chatBox.appendChild(botMsg);
+                chatBox.scrollTop = chatBox.scrollHeight;
 
-        function updateXPUI() {
-            const progressBar = document.getElementById("xp-progress-bar");
-            const xpText = document.getElementById("xp-text-display");
-            const levelBadge = document.getElementById("user-badge-level");
-            const nextLevel = document.getElementById("next-level-num");
+                // Recompensa de XP por utilizar o tutor
+                addXP(20);
+            }, 600);
+        }
 
-            if (progressBar) progressBar.style.width = `${currentUser.xp}%`;
-            if (xpText) xpText.innerText = `${currentUser.xp} / 100 XP`;
-            if (levelBadge) levelBadge.innerText = `Nível ${currentUser.level}`;
-            if (nextLevel) nextLevel.innerText = `Nível ${currentUser.level + 1}`;
-        }
+        function generateTutorResponse(query) {
+            const lower = query.toLowerCase();
+            if (lower.includes("kepler") || lower.includes("oba")) {
+                return "💡 Dica de Astronomia: Lembre-se da 3ª Lei de Kepler ($T^2 \\propto a^3$). O quadrado do período orbital é proporcional ao cubo do semi-eixo maior!";
+            } else if (lower.includes("obmep") || lower.includes("contagem")) {
+                return "🧩 Dica de Matemática: Em problemas de contagem, tente quebrar o problema em casos menores ou utilizar o Princípio Multiplicativo.";
+            } else {
+                return `Excelente questão! Para resolver isso sem spoilers: identifique primeiro as variáveis principais e monte a equação fundamental do problema. Quer um passo a passo intermediário?`;
+            }
+        }
 
-        // LÓGICA DO CHAT IA OLYMBOT
-        function handleChatSubmit(event) {
-            event.preventDefault();
-            const input = document.getElementById("chat-input");
-            const chatBox = document.getElementById("chat-box");
-            const text = input.value.trim();
+        // LÓGICA DE GERENCIAMENTO DE MODAIS E MENUS
+        function toggleDotsMenu() {
+            document.getElementById("dots-dropdown").classList.toggle("hidden");
+        }
 
-            if (!text) return;
+        function openAuthModal(tab) {
+            document.getElementById("auth-modal").classList.remove("hidden");
+            switchAuthTab(tab);
+        }
 
-            // Renderizar Mensagem do Usuário
-            const userMsg = document.createElement("div");
-            userMsg.className = "bg-indigo-600/30 border border-indigo-500/30 p-3 rounded-xl text-slate-100 max-w-[85%] ml-auto text-right mb-2";
-            userMsg.innerText = text;
-            chatBox.appendChild(userMsg);
+        function closeAuthModal() {
+            document.getElementById("auth-modal").classList.add("hidden");
+        }
 
-            input.value = "";
-            chatBox.scrollTop = chatBox.scrollHeight;
+        function switchAuthTab(tab) {
+            const regForm = document.getElementById("register-form");
+            const loginForm = document.getElementById("login-form");
+            if (tab === 'register') {
+                regForm.classList.remove("hidden");
+                loginForm.classList.add("hidden");
+            } else {
+                regForm.classList.add("hidden");
+                loginForm.classList.remove("hidden");
+            }
+        }
 
-            // Resposta Simulada do Tutor Pedagógico
-            setTimeout(() => {
-                const botMsg = document.createElement("div");
-                botMsg.className = "bg-slate-900 border border-slate-800 p-3 rounded-xl text-slate-300 max-w-[85%] mb-2";
-                botMsg.innerText = generateTutorResponse(text);
-                chatBox.appendChild(botMsg);
-                chatBox.scrollTop = chatBox.scrollHeight;
+        function handleLogin(e) {
+            e.preventDefault();
+            closeAuthModal();
+            document.getElementById("public-view").classList.add("hidden");
+            document.getElementById("portal-view").classList.remove("hidden");
+            document.getElementById("nav-guest-actions").classList.add("hidden");
+            document.getElementById("nav-user-actions").classList.remove("hidden");
+            document.getElementById("nav-user-actions").classList.add("flex");
+        }
 
-                // Recompensa de XP por utilizar o tutor
-                addXP(20);
-            }, 600);
-        }
+        function handleRegister(e) {
+            e.preventDefault();
+            handleLogin(e);
+        }
 
-        function generateTutorResponse(query) {
-            const lower = query.toLowerCase();
-            if (lower.includes("kepler") || lower.includes("oba")) {
-                return "💡 Dica de Astronomia: Lembre-se da 3ª Lei de Kepler (T² ∝ a³). O quadrado do período orbital é proporcional ao cubo do semi-eixo maior!";
-            } else if (lower.includes("obmep") || lower.includes("contagem")) {
-                return "🧩 Dica de Matemática: Em problemas de contagem, tente quebrar o problema em casos menores ou utilizar o Princípio Multiplicativo.";
-            } else {
-                return `Excelente questão! Para resolver isso sem spoilers: identifique primeiro as variáveis principais e monte a equação fundamental do problema. Quer um passo a passo intermediário?`;
-            }
-        }
+        function logout() {
+            document.getElementById("public-view").classList.remove("hidden");
+            document.getElementById("portal-view").classList.add("hidden");
+            document.getElementById("nav-guest-actions").classList.remove("hidden");
+            document.getElementById("nav-user-actions").classList.add("hidden");
+        }
 
-        // LÓGICA DE GERENCIAMENTO DE MODAIS E MENUS
-        function toggleDotsMenu() {
-            document.getElementById("dots-dropdown").classList.toggle("hidden");
-        }
+        // CONTROLADOR POMODORO
+        function togglePomodoro() {
+            const btn = document.getElementById("pomo-start-btn");
+            if (isPomodoroRunning) {
+                clearInterval(pomodoroInterval);
+                isPomodoroRunning = false;
+                btn.innerText = "Iniciar";
+            } else {
+                isPomodoroRunning = true;
+                btn.innerText = "Pausar";
+                pomodoroInterval = setInterval(() => {
+                    if (pomodoroSeconds > 0) {
+                        pomodoroSeconds--;
+                        updatePomodoroDisplay();
+                    } else {
+                        clearInterval(pomodoroInterval);
+                        addXP(50); // Bônus por completar a sessão
+                        alert("Sessão Pomodoro concluída! +50 XP adicionados.");
+                        resetPomodoro();
+                    }
+                }, 1000);
+            }
+        }
 
-        function openAuthModal(tab) {
-            document.getElementById("auth-modal").classList.remove("hidden");
-            switchAuthTab(tab);
-        }
+        function resetPomodoro() {
+            clearInterval(pomodoroInterval);
+            isPomodoroRunning = false;
+            pomodoroSeconds = 25 * 60;
+            document.getElementById("pomo-start-btn").innerText = "Iniciar";
+            updatePomodoroDisplay();
+        }
 
-        function closeAuthModal() {
-            document.getElementById("auth-modal").classList.add("hidden");
-        }
-
-        function switchAuthTab(tab) {
-            const regForm = document.getElementById("register-form");
-            const loginForm = document.getElementById("login-form");
-            const tabRegBtn = document.getElementById("tab-register");
-            const tabLogBtn = document.getElementById("tab-login");
-
-            if (tab === 'register') {
-                regForm.classList.remove("hidden");
-                loginForm.classList.add("hidden");
-                tabRegBtn.className = "flex-1 pb-3 font-semibold text-center text-indigo-400 border-b-2 border-indigo-500 transition";
-                tabLogBtn.className = "flex-1 pb-3 font-semibold text-center text-slate-400 border-b-2 border-transparent transition";
-            } else {
-                regForm.classList.add("hidden");
-                loginForm.classList.remove("hidden");
-                tabLogBtn.className = "flex-1 pb-3 font-semibold text-center text-indigo-400 border-b-2 border-indigo-500 transition";
-                tabRegBtn.className = "flex-1 pb-3 font-semibold text-center text-slate-400 border-b-2 border-transparent transition";
-            }
-        }
-
-        function handleLogin(e) {
-            e.preventDefault();
-            const usernameInput = document.getElementById("login-username").value.trim();
-            if (usernameInput) {
-                currentUser.username = usernameInput;
-                document.getElementById("user-display-nav").innerText = currentUser.username;
-            }
-            closeAuthModal();
-            document.getElementById("public-view").classList.add("hidden");
-            document.getElementById("portal-view").classList.remove("hidden");
-            document.getElementById("nav-guest-actions").classList.add("hidden");
-            document.getElementById("nav-user-actions").classList.remove("hidden");
-            document.getElementById("nav-user-actions").classList.add("flex");
-        }
-
-        function handleRegister(e) {
-            e.preventDefault();
-            const usernameInput = document.getElementById("reg-username").value.trim();
-            if (usernameInput) {
-                currentUser.username = usernameInput;
-                document.getElementById("user-display-nav").innerText = currentUser.username;
-            }
-            handleLogin(e);
-        }
-
-        function logout() {
-            document.getElementById("public-view").classList.remove("hidden");
-            document.getElementById("portal-view").classList.add("hidden");
-            document.getElementById("nav-guest-actions").classList.remove("hidden");
-            document.getElementById("nav-user-actions").classList.add("hidden");
-            document.getElementById("nav-user-actions").classList.remove("flex");
-        }
-
-        // CONTROLADOR POMODORO
-        function togglePomodoro() {
-            const btn = document.getElementById("pomo-start-btn");
-            if (isPomodoroRunning) {
-                clearInterval(pomodoroInterval);
-                isPomodoroRunning = false;
-                btn.innerText = "Iniciar";
-            } else {
-                isPomodoroRunning = true;
-                btn.innerText = "Pausar";
-                pomodoroInterval = setInterval(() => {
-                    if (pomodoroSeconds > 0) {
-                        pomodoroSeconds--;
-                        updatePomodoroDisplay();
-                    } else {
-                        clearInterval(pomodoroInterval);
-                        addXP(50); // Bônus por completar a sessão
-                        alert("Sessão Pomodoro concluída! +50 XP adicionados.");
-                        resetPomodoro();
-                    }
-                }, 1000);
-            }
-        }
-
-        function resetPomodoro() {
-            clearInterval(pomodoroInterval);
-            isPomodoroRunning = false;
-            pomodoroSeconds = 25 * 60;
-            document.getElementById("pomo-start-btn").innerText = "Iniciar";
-            updatePomodoroDisplay();
-        }
-
-        function updatePomodoroDisplay() {
-            const min = Math.floor(pomodoroSeconds / 60).toString().padStart(2, '0');
-            const sec = (pomodoroSeconds % 60).toString().padStart(2, '0');
-            document.getElementById("pomodoro-timer").innerText = `${min}:${sec}`;
-        }
-    </script>
+        function updatePomodoroDisplay() {
+            const min = Math.floor(pomodoroSeconds / 60).toString().padStart(2, '0');
+            const sec = (pomodoroSeconds % 60).toString().padStart(2, '0');
+            document.getElementById("pomodoro-timer").innerText = `${min}:${sec}`;
+        }
+    </script>
 </body>
 </html>
