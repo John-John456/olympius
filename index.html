@@ -1041,5 +1041,14 @@
             }, 600);
         }
     </script>
+    <!-- Importa o script de login/cadastro -->
+<script src="auth.js"></script>
+
+<script>
+  // Conecta os formulários do HTML com as funções do auth.js
+  document.getElementById('form-register')?.addEventListener('submit', handleRegister);
+  document.getElementById('form-login')?.addEventListener('submit', handleLogin);
+</script>
+</body>
 </body>
 </html>
