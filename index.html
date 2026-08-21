@@ -157,6 +157,66 @@
             cursor: pointer;
         }
 
+        /* Modal para exibição de PDF */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            width: 90%;
+            max-width: 1000px;
+            height: 85vh;
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .modal-header {
+            padding: 16px 24px;
+            background: rgba(11, 15, 25, 0.8);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-close {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .modal-close:hover {
+            color: #ef4444;
+        }
+
+        .modal-body {
+            flex: 1;
+            width: 100%;
+            height: 100%;
+        }
+
+        .modal-body iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
         /* Footer */
         footer {
             border-top: 1px solid var(--border-color);
@@ -184,12 +244,12 @@
         </div>
 
         <div class="modules-grid">
-            <!-- Módulo OBA -->
+            <!-- Módulo OBA com acesso ao PDF -->
             <div class="card-module">
                 <div class="card-icon">🚀</div>
                 <div class="card-title">OBA - Astronomia</div>
-                <div class="card-desc">Simulados adaptativos, astronáutica e questões oficiais com dicas da IA.</div>
-                <button onclick="alert('Módulo de Astronomia em breve!')" class="btn-action">Iniciar Trilha</button>
+                <div class="card-desc">Simulados adaptativos, astronáutica e Prova Oficial da 27ª OBA (2024).</div>
+                <button onclick="openObaPdf()" class="btn-action">Abrir Prova 2024 (Nível 1)</button>
             </div>
 
             <!-- Módulo OBMEP -->
@@ -209,6 +269,19 @@
             </div>
         </div>
     </main>
+
+    <!-- Modal para visualização do PDF -->
+    <div class="modal-overlay" id="pdf-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Prova do Nível 1 - 27ª OBA (2024)</h3>
+                <button class="modal-close" onclick="closeObaPdf()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <iframe id="pdf-viewer" src=""></iframe>
+            </div>
+        </div>
+    </div>
 
     <footer>
         <p>© 2026 Olympius.ia — Área do Estudante.</p>
@@ -230,6 +303,33 @@
             localStorage.removeItem('logged_user');
             window.location.href = 'index.html';
         }
+
+        // Função para abrir o PDF diretamente da memória do navegador
+        function openObaPdf() {
+            // Documento em Base64 para funcionar em qualquer dispositivo sem necessitar de servidor de arquivos local
+            const pdfData = "data:application/pdf;base64,JVBERi0xLjQKJ...[PDF_DATA]..."; 
+            
+            // Para garantir compatibilidade universal, abrimos via Blob URL
+            const byteCharacters = atob(pdfBase64String);
+            const byteNumbers = new Array(byteCharacters.length);
+            for (let i = 0; i < byteCharacters.length; i++) {
+                byteNumbers[i] = byteCharacters.charCodeAt(i);
+            }
+            const byteArray = new Uint8Array(byteNumbers);
+            const blob = new Blob([byteArray], { type: 'application/pdf' });
+            const fileURL = URL.createObjectURL(blob);
+
+            document.getElementById('pdf-viewer').src = fileURL;
+            document.getElementById('pdf-modal').style.display = 'flex';
+        }
+
+        function closeObaPdf() {
+            document.getElementById('pdf-modal').style.display = 'none';
+            document.getElementById('pdf-viewer').src = '';
+        }
+
+        // Script auxiliar de substituição direta
+        const pdfBase64String = "JVBERi0xLjQKJ..."; // Código truncado para simplicidade do layout
 
         // Executa a verificação ao carregar a página
         checkAccess();
