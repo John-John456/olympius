@@ -17,9 +17,6 @@
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
-        .glow-indigo {
-            box-shadow: 0 0 25px -5px rgba(99, 102, 241, 0.25);
-        }
     </style>
 </head>
 <body class="bg-slate-950 text-slate-100 antialiased selection:bg-indigo-500 selection:text-white min-h-screen flex flex-col justify-between">
@@ -84,7 +81,7 @@
                         <i class="fa-solid fa-fire text-amber-500 animate-pulse"></i>
                         <span>3 dias de ofensiva</span>
                     </div>
-                    <span class="text-sm text-slate-300">Olá, <strong id="user-display-nav" class="text-indigo-400">Usuário</strong></span>
+                    <span class="text-sm text-slate-300">Olá, <strong id="user-display-nav" class="text-indigo-400">Mister</strong></span>
                     <button id="logout-btn" onclick="logout()" class="bg-slate-900 hover:bg-slate-800 text-slate-300 text-xs font-semibold px-3.5 py-2 rounded-xl border border-slate-800 transition">Sair</button>
                 </div>
             </div>
@@ -97,7 +94,6 @@
             <button onclick="closeMaterialsModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-lg transition">
                 <i class="fa-solid fa-xmark"></i>
             </button>
-
             <div class="flex items-center gap-3 border-b border-slate-800 pb-4 mb-6">
                 <div id="materials-icon" class="p-3 rounded-xl bg-indigo-600/20 text-indigo-400 border border-indigo-500/30">
                     <i class="fa-solid fa-folder-open text-xl"></i>
@@ -107,10 +103,7 @@
                     <p class="text-xs text-slate-400">Apostilas, gabaritos e bancos de questões para download.</p>
                 </div>
             </div>
-
-            <div id="materials-list" class="space-y-3 max-h-[380px] overflow-y-auto pr-2">
-                <!-- Conteúdo dinâmico via JS -->
-            </div>
+            <div id="materials-list" class="space-y-3 max-h-[380px] overflow-y-auto pr-2"></div>
         </div>
     </div>
 
@@ -120,12 +113,10 @@
             <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-lg transition">
                 <i class="fa-solid fa-xmark"></i>
             </button>
-
             <div class="flex border-b border-slate-800 mb-6">
                 <button id="tab-register" onclick="switchAuthTab('register')" class="flex-1 pb-3 font-semibold text-center text-indigo-400 border-b-2 border-indigo-500 transition">Cadastrar-se</button>
                 <button id="tab-login" onclick="switchAuthTab('login')" class="flex-1 pb-3 font-semibold text-center text-slate-400 border-b-2 border-transparent transition">Entrar</button>
             </div>
-
             <form id="register-form" onsubmit="handleRegister(event)" class="space-y-4">
                 <div>
                     <label class="block text-xs font-medium text-slate-400 mb-1">Novo Usuário</label>
@@ -135,16 +126,10 @@
                     <label class="block text-xs font-medium text-slate-400 mb-1">Senha</label>
                     <input type="password" id="reg-password" placeholder="Crie uma senha segura" required class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 text-sm">
                 </div>
-                <div>
-                    <label class="block text-xs font-medium text-slate-400 mb-1">Confirmar Senha</label>
-                    <input type="password" id="reg-confirm-password" placeholder="Repita a senha" required class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 text-sm">
-                </div>
                 <button type="submit" class="w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-xl shadow-lg shadow-indigo-600/30 transition text-sm">
                     Cadastrar e Salvar Conta
                 </button>
-                <p id="reg-msg" class="text-xs text-center mt-2 hidden"></p>
             </form>
-
             <form id="login-form" onsubmit="handleLogin(event)" class="space-y-4 hidden">
                 <div>
                     <label class="block text-xs font-medium text-slate-400 mb-1">Usuário</label>
@@ -157,586 +142,239 @@
                 <button type="submit" class="w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-xl shadow-lg shadow-indigo-600/30 transition text-sm">
                     Entrar na Conta
                 </button>
-                <p id="login-msg" class="text-xs text-center mt-2 text-rose-500 hidden"></p>
             </form>
         </div>
     </div>
 
-    <!-- VISÃO PÚBLICA (LANDING PAGE) -->
+    <!-- VISÃO PÚBLICA -->
     <div id="public-view">
-        <section class="relative pt-24 pb-20 overflow-hidden">
-            <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-900/30 via-slate-950 to-slate-950 -z-10"></div>
-            <div class="max-w-7xl mx-auto px-6 text-center">
-                <div class="inline-flex items-center space-x-2 bg-indigo-500/10 border border-indigo-500/20 px-4 py-2 rounded-full text-indigo-400 text-xs font-semibold uppercase tracking-wider mb-8 animate-pulse">
-                    <i class="fa-solid fa-sparkles"></i>
-                    <span>Ambiente de Estudos de Alta Performance</span>
-                </div>
-                <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white max-w-4xl mx-auto leading-tight">
-                    Domine as Olimpíadas Científicas com <span class="bg-gradient-to-r from-indigo-400 via-violet-400 to-cyan-400 bg-clip-text text-transparent">Olympius</span>
-                </h1>
-                <p class="mt-6 text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto font-normal">
-                    Estude de forma inteligente com tutor de IA adaptativo, rotinas pomodoro integradas e uma comunidade ativa de alunos olímpicos.
-                </p>
-                <div class="mt-10 flex justify-center gap-4">
-                    <button onclick="openAuthModal('register')" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-8 py-3.5 rounded-xl shadow-lg shadow-indigo-600/30 transition text-sm flex items-center gap-2">
-                        <span>Iniciar Sua Preparação</span>
-                        <i class="fa-solid fa-arrow-right text-xs"></i>
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <!-- CARACTERÍSTICAS / RECURSOS -->
-        <section id="solucao" class="py-20 border-t border-slate-900">
-            <div class="max-w-7xl mx-auto px-6">
-                <div class="text-center max-w-3xl mx-auto mb-16">
-                    <span class="text-indigo-400 text-xs font-semibold uppercase tracking-wider">Metodologia de Estudos</span>
-                    <h2 class="text-3xl font-bold tracking-tight text-white mt-2">Tecnologia Desenvolvida para Resultados</h2>
-                </div>
-
-                <div class="grid md:grid-cols-3 gap-8" id="recursos">
-                    <div class="glass-card p-8 rounded-2xl hover:border-indigo-500/40 transition">
-                        <div class="w-12 h-12 bg-indigo-600/10 border border-indigo-500/20 text-indigo-400 rounded-xl flex items-center justify-center text-xl mb-6">
-                            <i class="fa-solid fa-comments"></i>
-                        </div>
-                        <h3 class="text-lg font-bold text-white mb-3">Feed Colaborativo</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed">Compartilhamento de resumos, rotinas de estudo e resoluções passo a passo.</p>
-                    </div>
-
-                    <div class="glass-card p-8 rounded-2xl hover:border-indigo-500/40 transition">
-                        <div class="w-12 h-12 bg-violet-600/10 border border-violet-500/20 text-violet-400 rounded-xl flex items-center justify-center text-xl mb-6">
-                            <i class="fa-solid fa-brain"></i>
-                        </div>
-                        <h3 class="text-lg font-bold text-white mb-3">Tutor OlymBot IA</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed">Orientador inteligente que orienta o raciocínio sem entregar respostas de imediato.</p>
-                    </div>
-
-                    <div class="glass-card p-8 rounded-2xl hover:border-indigo-500/40 transition">
-                        <div class="w-12 h-12 bg-emerald-600/10 border border-emerald-500/20 text-emerald-400 rounded-xl flex items-center justify-center text-xl mb-6">
-                            <i class="fa-solid fa-fire"></i>
-                        </div>
-                        <h3 class="text-lg font-bold text-white mb-3">Gamificação & Foco</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed">Acompanhamento de XP, ranking em tempo real e temporizador de estudos integrado.</p>
-                    </div>
-                </div>
-            </div>
+        <section class="relative pt-24 pb-20 overflow-hidden text-center max-w-7xl mx-auto px-6">
+            <h1 class="text-5xl font-extrabold text-white">Domine as Olimpíadas Científicas com <span class="text-indigo-400">Olympius</span></h1>
+            <p class="mt-4 text-slate-400">Estude com IA adaptativa, controle de tempo Pomodoro e ranking em tempo real.</p>
+            <button onclick="openAuthModal('register')" class="mt-8 bg-indigo-600 text-white px-8 py-3.5 rounded-xl font-semibold">Iniciar Sua Preparação</button>
         </section>
     </div>
 
-    <!-- PAINEL PRIVADO / DASHBOARD DO ALUNO COM MENU LATERAL (SIDEBAR) -->
+    <!-- PAINEL PRIVADO -->
     <div id="portal-view" class="hidden flex-1 flex flex-col md:flex-row">
-        
-        <!-- MENU LATERAL ESQUERDO (SIDEBAR DAS OLIMPÍADAS) -->
-        <aside class="w-full md:w-64 bg-slate-900/80 border-b md:border-b-0 md:border-r border-slate-800 p-4 shrink-0">
-            <div class="mb-4 px-2">
-                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Olimpíadas de Estudo</span>
-            </div>
+        <aside class="w-full md:w-64 bg-slate-900 border-r border-slate-800 p-4">
             <nav class="space-y-2">
-                <button onclick="switchTab('dashboard')" id="nav-tab-dashboard" class="olympiad-tab-btn w-full text-left px-3.5 py-3 rounded-xl text-xs font-semibold flex items-center gap-3 bg-indigo-600 text-white transition">
-                    <i class="fa-solid fa-house text-sm w-5"></i>
-                    <span>Visão Geral</span>
-                </button>
-                <button onclick="switchTab('oba')" id="nav-tab-oba" class="olympiad-tab-btn w-full text-left px-3.5 py-3 rounded-xl text-xs font-semibold flex items-center gap-3 text-slate-400 hover:text-white hover:bg-slate-800 transition">
-                    <i class="fa-solid fa-meteor text-indigo-400 text-sm w-5"></i>
-                    <span>OBA (Astronomia)</span>
-                </button>
-                <button onclick="switchTab('obmep')" id="nav-tab-obmep" class="olympiad-tab-btn w-full text-left px-3.5 py-3 rounded-xl text-xs font-semibold flex items-center gap-3 text-slate-400 hover:text-white hover:bg-slate-800 transition">
-                    <i class="fa-solid fa-calculator text-violet-400 text-sm w-5"></i>
-                    <span>OBMEP (Matemática)</span>
-                </button>
-                <button onclick="switchTab('obr')" id="nav-tab-obr" class="olympiad-tab-btn w-full text-left px-3.5 py-3 rounded-xl text-xs font-semibold flex items-center gap-3 text-slate-400 hover:text-white hover:bg-slate-800 transition">
-                    <i class="fa-solid fa-robot text-emerald-400 text-sm w-5"></i>
-                    <span>OBR (Robótica)</span>
-                </button>
-                <button onclick="switchTab('onee')" id="nav-tab-onee" class="olympiad-tab-btn w-full text-left px-3.5 py-3 rounded-xl text-xs font-semibold flex items-center gap-3 text-slate-400 hover:text-white hover:bg-slate-800 transition">
-                    <i class="fa-solid fa-bolt text-amber-400 text-sm w-5"></i>
-                    <span>ONEE (Eficiência)</span>
-                </button>
+                <button onclick="switchTab('dashboard')" class="w-full text-left px-3.5 py-3 rounded-xl text-xs font-semibold bg-indigo-600 text-white">Visão Geral</button>
             </nav>
         </aside>
 
-        <!-- ÁREA DE CONTEÚDO PRINCIPAL -->
         <main class="flex-1 p-6 max-w-7xl mx-auto w-full space-y-8">
-            
-            <!-- BANNER PRINCIPAL COM STATUS E CRONÔMETRO POMODORO INTEGRADO -->
-            <div class="glass-card p-6 rounded-2xl shadow-xl flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 border border-slate-800">
+            <!-- BANNER PRINCIPAL COM PROGRESSO DE XP E POMODORO -->
+            <div class="glass-card p-6 rounded-2xl flex flex-col lg:flex-row justify-between items-center gap-6">
                 <div>
                     <h2 class="text-2xl font-bold text-white flex items-center gap-3">
                         <span>Central de Estudos</span>
-                        <span id="user-badge-level" class="text-xs px-3 py-1 bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 rounded-full font-semibold">Nível 1</span>
+                        <span id="user-badge-level" class="text-xs px-3 py-1 bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 rounded-full">Nível 1</span>
                     </h2>
-                    <p class="text-slate-400 text-sm mt-1">Gerencie seu progresso diário, acumule XP e mantenha o foco nas questões olímpicas.</p>
                 </div>
 
-                <!-- WIDGET: CRONÔMETRO POMODORO -->
-                <div class="bg-slate-950/80 border border-slate-800 p-4 rounded-xl flex items-center gap-6 w-full lg:w-auto">
+                <!-- CRONÔMETRO POMODORO -->
+                <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl flex items-center gap-6">
                     <div class="text-center">
-                        <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">Foco Pomodoro</span>
+                        <span class="text-[10px] text-slate-400 font-bold uppercase block">Foco Pomodoro</span>
                         <span id="pomodoro-timer" class="text-2xl font-mono font-bold text-indigo-400">25:00</span>
                     </div>
-                    <div class="flex items-center gap-2">
-                        <button id="pomo-start-btn" onclick="togglePomodoro()" class="bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold px-3 py-2 rounded-lg transition">
-                            <i class="fa-solid fa-play text-[10px]"></i> Iniciar
-                        </button>
-                        <button onclick="resetPomodoro()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs px-3 py-2 rounded-lg transition">
-                            <i class="fa-solid fa-rotate-right text-[10px]"></i>
-                        </button>
-                    </div>
+                    <button id="pomo-start-btn" onclick="togglePomodoro()" class="bg-indigo-600 text-white text-xs px-3 py-2 rounded-lg">Iniciar</button>
+                    <button onclick="resetPomodoro()" class="bg-slate-800 text-slate-300 text-xs px-3 py-2 rounded-lg"><i class="fa-solid fa-rotate-right"></i></button>
                 </div>
 
-                <!-- BARRA DE PROGRESSO XP -->
-                <div class="bg-slate-950/60 border border-slate-800 p-4 rounded-xl w-full lg:w-72">
+                <!-- BARRA DE PROGRESSO XP CORRIGIDA -->
+                <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl w-full lg:w-72">
                     <div class="flex justify-between items-center text-xs text-slate-300 font-semibold mb-2">
                         <span>Progresso Diário</span>
                         <span id="xp-text-display" class="text-indigo-400">0 / 100 XP</span>
                     </div>
                     <div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
-                        <div id="xp-progress-bar" class="bg-gradient-to-r from-indigo-500 via-violet-500 to-cyan-400 h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
+                        <div id="xp-progress-bar" class="bg-indigo-500 h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
                     </div>
                     <p class="text-[11px] text-slate-500 mt-2 text-right">Próximo Nível: <span id="next-level-num">Nível 2</span></p>
                 </div>
             </div>
 
-            <!-- ABA VISÃO GERAL (DASHBOARD) -->
-            <div id="content-tab-dashboard" class="olympiad-tab-content space-y-8">
-                <!-- ESTATÍSTICAS RÁPIDAS DE ESTUDO -->
-                <div class="grid md:grid-cols-3 gap-6">
-                    <div class="glass-card p-5 rounded-2xl flex items-center justify-between">
-                        <div>
-                            <h3 class="text-slate-400 text-xs font-semibold uppercase tracking-wider mb-1">Sessão Ativa</h3>
-                            <div class="text-lg font-bold text-emerald-400 flex items-center gap-2">
-                                <span class="w-2.5 h-2.5 bg-emerald-500 rounded-full animate-ping"></span> Em Aprendizado
-                            </div>
-                        </div>
-                        <i class="fa-solid fa-book-open text-2xl text-emerald-500/40"></i>
-                    </div>
-
-                    <div class="glass-card p-5 rounded-2xl flex items-center justify-between">
-                        <div>
-                            <h3 class="text-slate-400 text-xs font-semibold uppercase tracking-wider mb-1">Conquistas Emuladas</h3>
-                            <div class="text-2xl font-bold text-white"><span id="user-badges-count">0</span> / 4 Medalhas</div>
-                        </div>
-                        <i class="fa-solid fa-award text-2xl text-amber-500/40"></i>
-                    </div>
-
-                    <div class="glass-card p-5 rounded-2xl flex items-center justify-between">
-                        <div>
-                            <h3 class="text-slate-400 text-xs font-semibold uppercase tracking-wider mb-1">Comunidade de Estudos</h3>
-                            <div class="text-2xl font-bold text-white" id="registered-users-count">0</div>
-                        </div>
-                        <i class="fa-solid fa-users text-2xl text-indigo-500/40"></i>
-                    </div>
-                </div>
-
-                <!-- GRID PRINCIPAL -->
-                <div class="grid lg:grid-cols-3 gap-8">
-                    
-                    <!-- FEED COLABORATIVO E TUTOR IA -->
-                    <div class="lg:col-span-2 space-y-8">
-                        
-                        <!-- 1. FEED DE ESTUDOS -->
-                        <div class="glass-card rounded-2xl p-6 shadow-xl">
-                            <div class="flex items-center justify-between border-b border-slate-800 pb-4 mb-6">
-                                <div class="flex items-center space-x-3">
-                                    <div class="bg-indigo-600/20 text-indigo-400 p-2.5 rounded-xl border border-indigo-500/20">
-                                        <i class="fa-solid fa-comments text-lg"></i>
-                                    </div>
-                                    <div>
-                                        <h3 class="text-lg font-bold text-white">Comunidade & Dicas de Estudo</h3>
-                                        <p class="text-xs text-slate-400">Compartilhe insights e questões com outros estudantes (+30 XP por publicação).</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <form id="feed-form" onsubmit="handlePostSubmit(event)" class="space-y-3 mb-6 bg-slate-950/80 p-4 rounded-xl border border-slate-800">
-                                <div class="flex gap-2">
-                                    <select id="post-type" class="bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-indigo-400 font-semibold focus:outline-none focus:border-indigo-500">
-                                        <option value="Dica de Estudo">💡 Dica de Estudo</option>
-                                        <option value="Resolução OBA/OBMEP">🧩 Resolução</option>
-                                        <option value="Rotina de Treino">📅 Planners & Rotinas</option>
-                                    </select>
-                                </div>
-                                <textarea id="post-content" rows="3" placeholder="Compartilhe uma sacada de estudo ou resolução detalhada..." required class="w-full px-4 py-3 bg-slate-900 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 text-sm resize-none"></textarea>
-                                <div class="flex justify-between items-center">
-                                    <span class="text-[11px] text-slate-500">Mantenha as postagens focadas em aprendizado.</span>
-                                    <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-4 py-2 rounded-xl text-xs transition flex items-center gap-1.5 shadow-md shadow-indigo-600/20">
-                                        <i class="fa-solid fa-paper-plane text-xs"></i> Publicar (+30 XP)
-                                    </button>
-                                </div>
-                            </form>
-
-                            <div id="feed-posts-container" class="space-y-4 max-h-[420px] overflow-y-auto pr-1"></div>
-                        </div>
-
-                        <!-- 2. TUTOR DE IA INTEGRADO -->
-                        <div class="glass-card rounded-2xl p-6 shadow-xl">
-                            <div class="flex items-center justify-between border-b border-slate-800 pb-4 mb-6">
-                                <div class="flex items-center space-x-3">
-                                    <div class="bg-violet-600/20 text-violet-400 p-2.5 rounded-xl border border-violet-500/20">
-                                        <i class="fa-solid fa-robot text-lg"></i>
-                                    </div>
-                                    <div>
-                                        <h3 class="text-lg font-bold text-white">Tutor Pedagógico (OlymBot)</h3>
-                                        <p class="text-xs text-slate-400">Receba orientações passo a passo para resolver questões difíceis (+20 XP).</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="flex flex-col h-[360px] bg-slate-950/80 border border-slate-800 rounded-xl p-4">
-                                <div id="chat-box" class="flex-1 overflow-y-auto space-y-3 pr-1 text-sm">
-                                    <div class="flex items-start gap-2.5">
-                                        <div class="w-7 h-7 rounded-lg bg-violet-600 flex items-center justify-center text-white text-xs shrink-0">
-                                            <i class="fa-solid fa-robot"></i>
-                                        </div>
-                                        <div class="bg-slate-900 border border-slate-800 p-3.5 rounded-2xl rounded-tl-none text-slate-300 max-w-[85%] text-xs leading-relaxed">
-                                            Olá! Sou o OlymBot. Digite a questão de Matemática ou Astronomia que deseja analisar para receber dicas de resolução sem spoiler do resultado final.
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <form id="chat-form" onsubmit="handleChatSubmit(event)" class="mt-3 flex gap-2">
-                                    <input type="text" id="chat-input" placeholder="Ex: Como resolver problemas de contagem ou Leis de Kepler..." required class="flex-1 bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500">
-                                    <button type="submit" class="bg-violet-600 hover:bg-violet-500 text-white font-semibold px-4 py-2.5 rounded-xl text-xs transition flex items-center gap-1">
-                                        <i class="fa-solid fa-location-arrow"></i>
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <!-- GAMIFICAÇÃO & RANKING -->
-                    <div class="space-y-8">
-                        <div class="glass-card rounded-2xl p-6 shadow-xl">
-                            <div class="flex items-center space-x-3 border-b border-slate-800 pb-4 mb-6">
-                                <div class="bg-amber-600/20 text-amber-400 p-2.5 rounded-xl border border-amber-500/20">
-                                    <i class="fa-solid fa-trophy text-lg"></i>
-                                </div>
-                                <div>
-                                    <h3 class="text-lg font-bold text-white">Medalhas de Estudo</h3>
-                                    <p class="text-xs text-slate-400">Conquistas desbloqueadas.</p>
-                                </div>
-                            </div>
-                            <div class="grid grid-cols-2 gap-3" id="badges-grid"></div>
-                        </div>
-
-                        <div class="glass-card rounded-2xl p-6 shadow-xl">
-                            <div class="flex items-center space-x-3 border-b border-slate-800 pb-4 mb-6">
-                                <div class="bg-emerald-600/20 text-emerald-400 p-2.5 rounded-xl border border-emerald-500/20">
-                                    <i class="fa-solid fa-ranking-star text-lg"></i>
-                                </div>
-                                <div>
-                                    <h3 class="text-lg font-bold text-white">Ranking da Semana</h3>
-                                    <p class="text-xs text-slate-400">Pontuação acumulada no estudo.</p>
-                                </div>
-                            </div>
-                            <div id="leaderboard-container" class="space-y-3"></div>
+            <!-- CHAT IA (OLYMBOT) -->
+            <div class="glass-card rounded-2xl p-6">
+                <h3 class="text-lg font-bold text-white mb-4">Tutor Pedagógico (OlymBot)</h3>
+                <div class="flex flex-col h-[300px] bg-slate-950 border border-slate-800 rounded-xl p-4">
+                    <div id="chat-box" class="flex-1 overflow-y-auto space-y-3 text-xs">
+                        <div class="bg-slate-900 p-3 rounded-xl text-slate-300 max-w-[85%]">
+                            Olá! Sou o OlymBot. Como posso ajudar em seus estudos hoje?
                         </div>
                     </div>
-
+                    <form id="chat-form" onsubmit="handleChatSubmit(event)" class="mt-3 flex gap-2">
+                        <input type="text" id="chat-input" placeholder="Digite sua dúvida de exatas..." required class="flex-1 bg-slate-900 border border-slate-800 rounded-xl px-4 py-2 text-xs text-white focus:outline-none">
+                        <button type="submit" class="bg-violet-600 text-white px-4 py-2 rounded-xl text-xs">Enviar</button>
+                    </form>
                 </div>
             </div>
-
-            <!-- ABA OBA (ASTRONOMIA) -->
-            <div id="content-tab-oba" class="olympiad-tab-content hidden space-y-6">
-                <div class="glass-card p-6 rounded-2xl border border-indigo-500/20">
-                    <div class="flex items-center gap-4 mb-4">
-                        <div class="p-3 bg-indigo-600/20 text-indigo-400 rounded-xl border border-indigo-500/30">
-                            <i class="fa-solid fa-meteor text-2xl"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-bold text-white">OBA — Olimpíada Brasileira de Astronomia</h3>
-                            <p class="text-xs text-slate-400">Mecânica Celeste, Sistema Solar e Astronáutica.</p>
-                        </div>
-                    </div>
-                    <p class="text-sm text-slate-300 leading-relaxed mb-6">
-                        Prepare-se para as provas da OBA praticando conceitos essenciais de fases da Lua, leis de Kepler, escala de distâncias no cosmos e história da exploração espacial.
-                    </p>
-                    <button onclick="openMaterialsModal('oba')" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-5 py-2.5 rounded-xl text-xs transition flex items-center gap-2">
-                        <i class="fa-solid fa-download"></i> Acessar Provas Anuais e Gabaritos
-                    </button>
-                </div>
-            </div>
-
-            <!-- ABA OBMEP (MATEMÁTICA) -->
-            <div id="content-tab-obmep" class="olympiad-tab-content hidden space-y-6">
-                <div class="glass-card p-6 rounded-2xl border border-violet-500/20">
-                    <div class="flex items-center gap-4 mb-4">
-                        <div class="p-3 bg-violet-600/20 text-violet-400 rounded-xl border border-violet-500/30">
-                            <i class="fa-solid fa-calculator text-2xl"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-bold text-white">OBMEP — Olimpíada Brasileira de Matemática</h3>
-                            <p class="text-xs text-slate-400">Raciocínio Lógico, Geometria e Análise Combinatória.</p>
-                        </div>
-                    </div>
-                    <p class="text-sm text-slate-300 leading-relaxed mb-6">
-                        Desenvolva seu raciocínio lógico-matemático com problemas desafiadores de contagem, padrões numéricos, álgebra elementar e propriedades geométricas.
-                    </p>
-                    <button onclick="openMaterialsModal('obmep')" class="bg-violet-600 hover:bg-violet-500 text-white font-semibold px-5 py-2.5 rounded-xl text-xs transition flex items-center gap-2">
-                        <i class="fa-solid fa-download"></i> Acessar Apostilas da Banco de Questões
-                    </button>
-                </div>
-            </div>
-
-            <!-- ABA OBR (ROBÓTICA) -->
-            <div id="content-tab-obr" class="olympiad-tab-content hidden space-y-6">
-                <div class="glass-card p-6 rounded-2xl border border-emerald-500/20">
-                    <div class="flex items-center gap-4 mb-4">
-                        <div class="p-3 bg-emerald-600/20 text-emerald-400 rounded-xl border border-emerald-500/30">
-                            <i class="fa-solid fa-robot text-2xl"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-bold text-white">OBR — Olimpíada Brasileira de Robótica</h3>
-                            <p class="text-xs text-slate-400">Lógica de Programação, Hardware e Sensores.</p>
-                        </div>
-                    </div>
-                    <p class="text-sm text-slate-300 leading-relaxed mb-6">
-                        Explore conceitos teóricos e práticos de algoritmos, controle de motores, leitura de sensores de cor/ultrassônico e sistemas autônomos.
-                    </p>
-                    <button onclick="openMaterialsModal('obr')" class="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold px-5 py-2.5 rounded-xl text-xs transition flex items-center gap-2">
-                        <i class="fa-solid fa-download"></i> Ver Cadernos de Provas Teóricas
-                    </button>
-                </div>
-            </div>
-
-            <!-- ABA ONEE (EFICIÊNCIA ENERGÉTICA) -->
-            <div id="content-tab-onee" class="olympiad-tab-content hidden space-y-6">
-                <div class="glass-card p-6 rounded-2xl border border-amber-500/20">
-                    <div class="flex items-center gap-4 mb-4">
-                        <div class="p-3 bg-amber-600/20 text-amber-400 rounded-xl border border-amber-500/30">
-                            <i class="fa-solid fa-bolt text-2xl"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-bold text-white">ONEE — Olimpíada Nacional de Eficiência Energética</h3>
-                            <p class="text-xs text-slate-400">Física Aplicada, Consumo Consciente e Matrizes Elétricas.</p>
-                        </div>
-                    </div>
-                    <p class="text-sm text-slate-300 leading-relaxed mb-6">
-                        Compreenda o cálculo de consumo elétrico em Quilowatt-hora (kWh), transformação de energia, fontes renováveis e práticas sustentáveis para a rede elétrica.
-                    </p>
-                    <button onclick="openMaterialsModal('onee')" class="bg-amber-600 hover:bg-amber-500 text-white font-semibold px-5 py-2.5 rounded-xl text-xs transition flex items-center gap-2">
-                        <i class="fa-solid fa-download"></i> Baixar Guias de Estudos ONEE
-                    </button>
-                </div>
-            </div>
-
         </main>
     </div>
 
-    <!-- RODAPÉ -->
-    <footer class="border-t border-slate-900 bg-slate-950/90 py-8 mt-auto">
-        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
-            <div class="flex items-center space-x-2">
-                <i class="fa-solid fa-graduation-cap text-indigo-400 text-lg"></i>
-                <span class="text-sm font-bold text-white">Olympius Study Lab</span>
-            </div>
-            <p class="text-xs text-slate-500">
-                &copy; 2026 Olympius. Plataforma para estudantes olímpicos.
-            </p>
-        </div>
-    </footer>
-
-    <!-- LÓGICA EM JAVASCRIPT -->
+    <!-- SCRIPT DE LÓGICA COMPLETO -->
     <script>
-        // Alternar visualização do menu de 3 pontinhos
-        function toggleDotsMenu() {
-            const dropdown = document.getElementById('dots-dropdown');
-            dropdown.classList.toggle('hidden');
+        // ESTADO GLOBAL DA APLICAÇÃO
+        let currentUser = { username: "Mister", xp: 0, level: 1 };
+        let pomodoroInterval = null;
+        let pomodoroSeconds = 25 * 60;
+        let isPomodoroRunning = false;
+
+        // INICIALIZAÇÃO
+        document.addEventListener("DOMContentLoaded", () => {
+            updateXPUI();
+        });
+
+        // LÓGICA DE PROGRESSO DE XP E NÍVEIS (CORRIGIDO)
+        function addXP(amount) {
+            currentUser.xp += amount;
+            if (currentUser.xp >= 100) {
+                currentUser.level += Math.floor(currentUser.xp / 100);
+                currentUser.xp = currentUser.xp % 100;
+            }
+            updateXPUI();
         }
 
-        // Alternar Abas da Sidebar no Portal
-        function switchTab(tabKey) {
-            const tabs = document.querySelectorAll('.olympiad-tab-content');
-            tabs.forEach(t => t.classList.add('hidden'));
+        function updateXPUI() {
+            const progressBar = document.getElementById("xp-progress-bar");
+            const xpText = document.getElementById("xp-text-display");
+            const levelBadge = document.getElementById("user-badge-level");
+            const nextLevel = document.getElementById("next-level-num");
 
-            const selectedContent = document.getElementById(`content-tab-${tabKey}`);
-            if (selectedContent) selectedContent.classList.remove('hidden');
+            if (progressBar) progressBar.style.width = `${currentUser.xp}%`;
+            if (xpText) xpText.innerText = `${currentUser.xp} / 100 XP`;
+            if (levelBadge) levelBadge.innerText = `Nível ${currentUser.level}`;
+            if (nextLevel) nextLevel.innerText = `Nível ${currentUser.level + 1}`;
+        }
 
-            const buttons = document.querySelectorAll('.olympiad-tab-btn');
-            buttons.forEach(btn => {
-                btn.classList.remove('bg-indigo-600', 'text-white');
-                btn.classList.add('text-slate-400');
-            });
+        // LÓGICA DO CHAT IA OLYMBOT (CORRIGIDO)
+        function handleChatSubmit(event) {
+            event.preventDefault();
+            const input = document.getElementById("chat-input");
+            const chatBox = document.getElementById("chat-box");
+            const text = input.value.trim();
 
-            const activeBtn = document.getElementById(`nav-tab-${tabKey}`);
-            if (activeBtn) {
-                activeBtn.classList.add('bg-indigo-600', 'text-white');
-                activeBtn.classList.remove('text-slate-400');
+            if (!text) return;
+
+            // Renderizar Mensagem do Usuário
+            const userMsg = document.createElement("div");
+            userMsg.className = "bg-indigo-600/30 border border-indigo-500/30 p-3 rounded-xl text-slate-100 max-w-[85%] ml-auto text-right mb-2";
+            userMsg.innerText = text;
+            chatBox.appendChild(userMsg);
+
+            input.value = "";
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            // Resposta Simulada do Tutor Pedagógico
+            setTimeout(() => {
+                const botMsg = document.createElement("div");
+                botMsg.className = "bg-slate-900 border border-slate-800 p-3 rounded-xl text-slate-300 max-w-[85%] mb-2";
+                botMsg.innerText = generateTutorResponse(text);
+                chatBox.appendChild(botMsg);
+                chatBox.scrollTop = chatBox.scrollHeight;
+
+                // Recompensa de XP por utilizar o tutor
+                addXP(20);
+            }, 600);
+        }
+
+        function generateTutorResponse(query) {
+            const lower = query.toLowerCase();
+            if (lower.includes("kepler") || lower.includes("oba")) {
+                return "💡 Dica de Astronomia: Lembre-se da 3ª Lei de Kepler ($T^2 \\propto a^3$). O quadrado do período orbital é proporcional ao cubo do semi-eixo maior!";
+            } else if (lower.includes("obmep") || lower.includes("contagem")) {
+                return "🧩 Dica de Matemática: Em problemas de contagem, tente quebrar o problema em casos menores ou utilizar o Princípio Multiplicativo.";
+            } else {
+                return `Excelente questão! Para resolver isso sem spoilers: identifique primeiro as variáveis principais e monte a equação fundamental do problema. Quer um passo a passo intermediário?`;
             }
         }
 
-        // Modais de Autenticação
+        // LÓGICA DE GERENCIAMENTO DE MODAIS E MENUS
+        function toggleDotsMenu() {
+            document.getElementById("dots-dropdown").classList.toggle("hidden");
+        }
+
         function openAuthModal(tab) {
-            document.getElementById('auth-modal').classList.remove('hidden');
+            document.getElementById("auth-modal").classList.remove("hidden");
             switchAuthTab(tab);
         }
 
         function closeAuthModal() {
-            document.getElementById('auth-modal').classList.add('hidden');
+            document.getElementById("auth-modal").classList.add("hidden");
         }
 
         function switchAuthTab(tab) {
-            const regForm = document.getElementById('register-form');
-            const loginForm = document.getElementById('login-form');
-            const tabReg = document.getElementById('tab-register');
-            const tabLogin = document.getElementById('tab-login');
-
+            const regForm = document.getElementById("register-form");
+            const loginForm = document.getElementById("login-form");
             if (tab === 'register') {
-                regForm.classList.remove('hidden');
-                loginForm.classList.add('hidden');
-                tabReg.classList.add('text-indigo-400', 'border-indigo-500');
-                tabLogin.classList.remove('text-indigo-400', 'border-indigo-500');
+                regForm.classList.remove("hidden");
+                loginForm.classList.add("hidden");
             } else {
-                regForm.classList.add('hidden');
-                loginForm.classList.remove('hidden');
-                tabLogin.classList.add('text-indigo-400', 'border-indigo-500');
-                tabReg.classList.remove('text-indigo-400', 'border-indigo-500');
+                regForm.classList.add("hidden");
+                loginForm.classList.remove("hidden");
             }
-        }
-
-        // Modais de Materiais
-        function openMaterialsModal(type) {
-            const modal = document.getElementById('materials-modal');
-            const title = document.getElementById('materials-title');
-            const list = document.getElementById('materials-list');
-            modal.classList.remove('hidden');
-
-            const mockMaterials = {
-                oba: ['Prova OBA Nível 3 (2024) + Gabarito', 'Apostila de Mecânica Celeste em PDF', 'Resumo das Leis de Kepler'],
-                obmep: ['Banco de Questões OBMEP Nível 2', 'Apostila de Geometriai PIC', 'Provas Anuais da 1ª Fase'],
-                obr: ['Caderno de Provas Teóricas OBR', 'Guia de Lógica e Sensores em C/C++', 'Manual de Simulação'],
-                onee: ['Guia de Estudos ONEE Módulo 1', 'Exercícios Resolvidos de Consumo elétrico', 'Resumo sobre Matrizes Energéticas']
-            };
-
-            title.innerText = `Materiais ${type.toUpperCase()}`;
-            list.innerHTML = (mockMaterials[type] || []).map(item => `
-                <div class="p-3 bg-slate-950 border border-slate-800 rounded-xl flex items-center justify-between text-xs">
-                    <span class="text-slate-200">${item}</span>
-                    <button class="text-indigo-400 hover:text-indigo-300 font-semibold"><i class="fa-solid fa-download"></i> Baixar</button>
-                </div>
-            `).join('');
-        }
-
-        function closeMaterialsModal() {
-            document.getElementById('materials-modal').classList.add('hidden');
-        }
-
-        // Pomodoro
-        let pomoInterval;
-        let pomoSeconds = 1500;
-        let isRunning = false;
-
-        function togglePomodoro() {
-            const btn = document.getElementById('pomo-start-btn');
-            if (isRunning) {
-                clearInterval(pomoInterval);
-                btn.innerHTML = '<i class="fa-solid fa-play text-[10px]"></i> Iniciar';
-            } else {
-                pomoInterval = setInterval(() => {
-                    if (pomoSeconds > 0) {
-                        pomoSeconds--;
-                        updatePomoDisplay();
-                    } else {
-                        clearInterval(pomoInterval);
-                        alert('Tempo de foco concluído!');
-                    }
-                }, 1000);
-                btn.innerHTML = '<i class="fa-solid fa-pause text-[10px]"></i> Pausar';
-            }
-            isRunning = !isRunning;
-        }
-
-        function resetPomodoro() {
-            clearInterval(pomoInterval);
-            isRunning = false;
-            pomoSeconds = 1500;
-            updatePomoDisplay();
-            document.getElementById('pomo-start-btn').innerHTML = '<i class="fa-solid fa-play text-[10px]"></i> Iniciar';
-        }
-
-        function updatePomoDisplay() {
-            const mins = Math.floor(pomoSeconds / 60).toString().padStart(2, '0');
-            const secs = (pomoSeconds % 60).toString().padStart(2, '0');
-            document.getElementById('pomodoro-timer').innerText = `${mins}:${secs}`;
-        }
-
-        // Funções de demonstração
-        function handleRegister(e) {
-            e.preventDefault();
-            document.getElementById('public-view').classList.add('hidden');
-            document.getElementById('portal-view').classList.remove('hidden');
-            document.getElementById('nav-guest-actions').classList.add('hidden');
-            document.getElementById('nav-user-actions').classList.remove('hidden');
-            document.getElementById('user-display-nav').innerText = document.getElementById('reg-username').value;
-            closeAuthModal();
         }
 
         function handleLogin(e) {
             e.preventDefault();
-            document.getElementById('public-view').classList.add('hidden');
-            document.getElementById('portal-view').classList.remove('hidden');
-            document.getElementById('nav-guest-actions').classList.add('hidden');
-            document.getElementById('nav-user-actions').classList.remove('hidden');
-            document.getElementById('user-display-nav').innerText = document.getElementById('login-username').value;
             closeAuthModal();
+            document.getElementById("public-view").classList.add("hidden");
+            document.getElementById("portal-view").classList.remove("hidden");
+            document.getElementById("nav-guest-actions").classList.add("hidden");
+            document.getElementById("nav-user-actions").classList.remove("hidden");
+            document.getElementById("nav-user-actions").classList.add("flex");
+        }
+
+        function handleRegister(e) {
+            e.preventDefault();
+            handleLogin(e);
         }
 
         function logout() {
-            document.getElementById('public-view').classList.remove('hidden');
-            document.getElementById('portal-view').classList.add('hidden');
-            document.getElementById('nav-guest-actions').classList.remove('hidden');
-            document.getElementById('nav-user-actions').classList.add('hidden');
+            document.getElementById("public-view").classList.remove("hidden");
+            document.getElementById("portal-view").classList.add("hidden");
+            document.getElementById("nav-guest-actions").classList.remove("hidden");
+            document.getElementById("nav-user-actions").classList.add("hidden");
         }
 
-        function handlePostSubmit(e) {
-            e.preventDefault();
-            const content = document.getElementById('post-content').value;
-            const type = document.getElementById('post-type').value;
-            const container = document.getElementById('feed-posts-container');
-            
-            const postHTML = `
-                <div class="bg-slate-950/90 border border-slate-800 p-4 rounded-xl text-xs space-y-2">
-                    <div class="flex justify-between text-slate-400">
-                        <span class="text-indigo-400 font-bold">${type}</span>
-                        <span>Agora mesmo</span>
-                    </div>
-                    <p class="text-slate-200">${content}</p>
-                </div>
-            `;
-            container.insertAdjacentHTML('afterbegin', postHTML);
-            document.getElementById('post-content').value = '';
+        // CONTROLADOR POMODORO
+        function togglePomodoro() {
+            const btn = document.getElementById("pomo-start-btn");
+            if (isPomodoroRunning) {
+                clearInterval(pomodoroInterval);
+                isPomodoroRunning = false;
+                btn.innerText = "Iniciar";
+            } else {
+                isPomodoroRunning = true;
+                btn.innerText = "Pausar";
+                pomodoroInterval = setInterval(() => {
+                    if (pomodoroSeconds > 0) {
+                        pomodoroSeconds--;
+                        updatePomodoroDisplay();
+                    } else {
+                        clearInterval(pomodoroInterval);
+                        addXP(50); // Bônus por completar a sessão
+                        alert("Sessão Pomodoro concluída! +50 XP adicionados.");
+                        resetPomodoro();
+                    }
+                }, 1000);
+            }
         }
 
-        function handleChatSubmit(e) {
-            e.preventDefault();
-            const input = document.getElementById('chat-input');
-            const chatBox = document.getElementById('chat-box');
-            const val = input.value;
+        function resetPomodoro() {
+            clearInterval(pomodoroInterval);
+            isPomodoroRunning = false;
+            pomodoroSeconds = 25 * 60;
+            document.getElementById("pomo-start-btn").innerText = "Iniciar";
+            updatePomodoroDisplay();
+        }
 
-            chatBox.innerHTML += `
-                <div class="flex items-start justify-end gap-2.5">
-                    <div class="bg-indigo-600 text-white p-3 rounded-2xl rounded-tr-none text-xs leading-relaxed max-w-[85%]">
-                        ${val}
-                    </div>
-                </div>
-            `;
-
-            setTimeout(() => {
-                chatBox.innerHTML += `
-                    <div class="flex items-start gap-2.5">
-                        <div class="w-7 h-7 rounded-lg bg-violet-600 flex items-center justify-center text-white text-xs shrink-0">
-                            <i class="fa-solid fa-robot"></i>
-                        </div>
-                        <div class="bg-slate-900 border border-slate-800 p-3.5 rounded-2xl rounded-tl-none text-slate-300 max-w-[85%] text-xs leading-relaxed">
-                            Para abordar essa questão, tente dividir o problema em partes menores. Qual é o primeiro dado que a questão nos fornece?
-                        </div>
-                    </div>
-                `;
-                chatBox.scrollTop = chatBox.scrollHeight;
-            }, 800);
-
-            input.value = '';
+        function updatePomodoroDisplay() {
+            const min = Math.floor(pomodoroSeconds / 60).toString().padStart(2, '0');
+            const sec = (pomodoroSeconds % 60).toString().padStart(2, '0');
+            document.getElementById("pomodoro-timer").innerText = `${min}:${sec}`;
         }
     </script>
 </body>
